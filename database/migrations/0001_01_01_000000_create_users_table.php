@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('mobile', 10)->nullable();
+            $table->decimal('op_balance')->default('0.00');
+            $table->enum('cr_dr', ['cr', 'dr'])->default('dr');
+            $table->decimal('basic_salary')->default(0);
+            $table->tinyText('image')->nullable();
+            $table->foreignId('company_id')->constrained('companies');
             $table->rememberToken();
             $table->timestamps();
         });
