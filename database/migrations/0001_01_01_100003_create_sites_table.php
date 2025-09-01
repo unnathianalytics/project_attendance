@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->enum('status', ['in_progress', 'pending_payment ', 'completed'])->default('in_progress');
+            $table->enum('status', ['in_progress', 'pending_payment', 'completed'])->default('in_progress');
             $table->timestamps();
         });
     }

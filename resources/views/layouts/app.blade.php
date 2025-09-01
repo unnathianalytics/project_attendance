@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{{ $company->name ?? 'DevMode' }}</title>
+    <title>{{ \App\Models\Company::first()->name ?? 'Login' }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)">
@@ -21,6 +21,12 @@
         @include('layouts.footer')
     </div>
     @include('layouts.js')
+    @stack('scripts')
+    @if (session('success'))
+        <script>
+            toastr.success("{{ session('success') }}");
+        </script>
+    @endif
 </body>
 
 </html>

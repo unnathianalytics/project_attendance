@@ -28,4 +28,14 @@ class Site extends Model
     {
         return $this->hasMany(Expense::class);
     }
+
+    public function siteStatus(): string
+    {
+        return match ($this->status) {
+            'in_progress' => 'In Progress',
+            'pending_payment' => 'Pending Payment',
+            'completed' => 'Completed',
+            default => 'Unknown',
+        };
+    }
 }

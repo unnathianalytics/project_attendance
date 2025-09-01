@@ -20,7 +20,7 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <div class="card card-outline card-success">
                         <div class="card-header">
                             <div class="card-title">Customer List</div>
@@ -31,8 +31,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table table-sm table-bordered">
-                                <table class="table table-sm">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
 
 
                 </div>

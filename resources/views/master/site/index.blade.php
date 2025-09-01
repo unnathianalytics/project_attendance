@@ -20,7 +20,7 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <div class="card card-outline card-success">
                         <div class="card-header">
                             <div class="card-title">Site List</div>
@@ -31,11 +31,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table table-sm table-bordered">
-                                <table class="table table-sm">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Customer</th>
                                             <th>Customer</th>
                                             <th>Actions</th>
                                         </tr>
@@ -45,6 +46,9 @@
                                             <tr>
                                                 <td>{{ $site->name }}</td>
                                                 <td>{{ $site->customer->name }}</td>
+                                                <td class="align-middle">
+                                                    {{ $site->siteStatus() }}
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('site.edit', $site) }}"
                                                         class="btn btn-sm btn-warning btn-flat">Edit</a>
@@ -57,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
 
 
                 </div>

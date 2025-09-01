@@ -37,6 +37,7 @@ class CustomerForm extends Component
             ['id' => $this->customer?->id],
             $data
         );
+
         session()->flash('success', 'Customer updated successfully.');
         return redirect()->route('customer.index');
     }
