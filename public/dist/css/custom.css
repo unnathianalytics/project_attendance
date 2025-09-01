@@ -1,22 +1,67 @@
 @import url('adminlte.css');
 
-.card-primary,
-.card-secondary,
-.card-success,
-.card-danger,
-.card-warning,
-.card-info,
-.card-light,
-.card-dark {
-    border-top-width: 2px;
-    border-top-color: var(--bs-primary);
-}
 
-.card-header {
-    background: #fff !important;
-    color: #000 !important;
-}
 
 nav {
     font-size: 0.85rem;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Base flat button */
+.btn-flat {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: var(--bs-border-radius);
+}
+
+/* Flat Variants */
+.btn-flat.btn-primary {
+    background-color: var(--bs-primary);
+    color: #fff;
+}
+
+.btn-flat.btn-success {
+    background-color: var(--bs-success);
+    color: #fff;
+}
+
+.btn-flat.btn-info {
+    background-color: var(--bs-info);
+    color: #fff;
+}
+
+.btn-flat.btn-danger {
+    background-color: var(--bs-danger);
+    color: #fff;
+}
+
+.btn-flat.btn-warning {
+    background-color: var(--bs-warning);
+    color: #212529;
+}
+
+.btn-flat.btn-secondary {
+    background-color: var(--bs-secondary);
+    color: #fff;
+}
+
+.btn-flat.btn-light {
+    background-color: var(--bs-light);
+    color: #212529;
+}
+
+.btn-flat.btn-dark {
+    background-color: var(--bs-dark);
+    color: #fff;
+}
+
+/* Hover / Active states */
+.btn-flat:hover,
+.btn-flat:focus,
+.btn-flat:active {
+    opacity: 0.85;
 }

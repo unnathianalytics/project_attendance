@@ -1,11 +1,7 @@
-<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
-    crossorigin="anonymous"></script>
-<!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous">
-</script>
-<!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-<script src="{{ asset('dist/js/adminlte.js') }}"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+<script src="{{ asset('dist/js/overlayscrollbars.browser.es6.min.js') }}"></script>
+<script src="{{ asset('dist/js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <script>
     const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper"
     const Default = {
@@ -28,28 +24,22 @@
             })
         }
     })
-</script> <!--end::OverlayScrollbars Configure--><!-- Image path runtime fix -->
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Find the link tag for the main AdminLTE CSS file.
         const cssLink = document.querySelector('link[href*="css/adminlte.css"]');
         if (!cssLink) {
-            return; // Exit if the link isn't found
+            return;
         }
-
-        // Extract the base path from the CSS href.
-        // e.g., from "../css/adminlte.css", we get "../"
-        // e.g., from "./css/adminlte.css", we get "./"
         const cssHref = cssLink.getAttribute('href');
         const deploymentPath = cssHref.slice(0, cssHref.indexOf('css/adminlte.css'));
 
-        // Find all images with absolute paths and fix them.
         document.querySelectorAll('img[src^="/assets/"]').forEach(img => {
             const originalSrc = img.getAttribute('src');
             if (originalSrc) {
-                const relativeSrc = originalSrc.slice(1); // Remove leading '/'
+                const relativeSrc = originalSrc.slice(1);
                 img.src = deploymentPath + relativeSrc;
             }
         });
     });
-</script> <!--end::Script-->
+</script>
