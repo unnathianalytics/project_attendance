@@ -24,6 +24,11 @@
                     <div class="card card-outline card-success">
                         <div class="card-header">
                             <div class="card-title">Customer List</div>
+                            <div class="card-tools">
+                                <a wire:navigate class="btn btn-sm btn-secondary btn-flat float-end"
+                                    href="{{ route('customer.create') }}">New
+                                    Customer</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table table-sm table-bordered">
@@ -42,10 +47,11 @@
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->email }}</td>
                                                 <td class="text-end">{{ $customer->op_balance }}
-                                                    <small>{{ $customer->cr_dr }}</small></td>
+                                                    <small>{{ $customer->cr_dr }}</small>
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('customer.edit', $customer) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                        class="btn btn-sm btn-warning btn-flat">Edit</a>
                                                 </td>
                                             </tr>
                                         @endforeach

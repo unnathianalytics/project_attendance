@@ -23,6 +23,10 @@
                     <div class="card card-outline card-success">
                         <div class="card-header">
                             <div class="card-title">Customer Form</div>
+                            <div class="card-tools">
+                                <a wire:navigate class="btn btn-sm btn-secondary btn-flat float-end"
+                                    href="{{ route('customer.index') }}">Cancel</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <form wire:submit.prevent="save">
@@ -47,7 +51,8 @@
                                         <div class="input-group mb-3">
                                             <input type="number" wire:model="op_balance"
                                                 class="text-end form-control form-control-sm">
-                                            <select wire:model="cr_dr" class="form-control form-control-sm">
+                                            <select wire:model="cr_dr" class="form-control form-control-sm"
+                                                style="max-width: 60px;">
                                                 <option selected>Cr/Dr</option>
                                                 <option value="Cr">Cr</option>
                                                 <option value="Dr">Dr</option>
