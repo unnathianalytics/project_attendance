@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\{Customer, Site};
+use App\Models\{Customer, Site, Labor};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -22,6 +22,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/master/site', 'master.site.create')->name('site.create');
     Route::get('/master/{site}/site', fn(Site $site) => view('master.site.edit', ['site' => $site]))->name('site.edit');
     Route::view('/master/sites',  'master.site.index')->name('site.index');
+
+    //Masters - Labor
+    Route::view('/master/labor', 'master.labor.create')->name('labor.create');
+    Route::get('/master/{labor}/labor', fn(Labor $labor) => view('master.labor.edit', ['labor' => $labor]))->name('labor.edit');
+    Route::view('/master/labors',  'master.labor.index')->name('labor.index');
 });
 
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('mobile', 10)->nullable();
             $table->decimal('op_balance')->default('0.00');
-            $table->enum('cr_dr', ['cr', 'dr'])->default('dr');
+            $table->enum('cr_dr', ['Cr', 'Dr'])->default('Dr');
             $table->decimal('basic_salary')->default(0);
             $table->tinyText('image')->nullable();
             $table->foreignId('company_id')->constrained('companies');

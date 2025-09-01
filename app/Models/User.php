@@ -14,24 +14,18 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
 
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-    use LogsActivity;
-    use HasRoles;
+    use HasFactory, Notifiable, LogsActivity, HasRoles;
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logAll();
     }
+    protected $guard_name = ['web'];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'mobile',
         'op_balance',
         'cr_dr',
         'basic_salary',

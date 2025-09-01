@@ -32,7 +32,13 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/NumberHelper.php",
+            "app/Helpers/NumberToWordsHelper.php",
+            "app/Helpers/IndianFinancialYearHelper.php",
+            "app/Helpers/UserHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
