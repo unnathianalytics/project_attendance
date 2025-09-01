@@ -31,6 +31,18 @@
                         <div class="card-body">
                             <form wire:submit.prevent="save">
                                 <div class="row">
+                                    <div class="col-lg-4 mb-3">
+                                        <select class="form-control form-control-sm" wire:model="account_id">
+                                            <option value="">Select Customer</option>
+                                            @foreach (\App\Models\Customer::all() as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('account_id')
+                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                     <div class="col-lg-4 mb-3"><input type="text"
                                             class="form-control form-control-sm" wire:model="name" placeholder="Name"
                                             value="{{ $site->name ?? '' }}">
@@ -39,30 +51,38 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-4 mb-3"> <input type="email"
-                                            class="form-control form-control-sm" wire:model="email" placeholder="Email"
-                                            value="{{ $site->email ?? '' }}">
-                                        @error('email')
+                                    <div class="col-lg-4 mb-3"> <input type="text"
+                                            class="form-control form-control-sm" wire:model="address"
+                                            placeholder="Address" value="{{ $site->address ?? '' }}">
+                                        @error('address')
+                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-4 mb-3"> <input type="text"
+                                            class="form-control form-control-sm" wire:model="longitude"
+                                            placeholder="Longitude" value="{{ $site->longitude ?? '' }}">
+                                        @error('longitude')
+                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-4 mb-3"> <input type="text"
+                                            class="form-control form-control-sm" wire:model="latitude"
+                                            placeholder="Latitude" value="{{ $site->latitude ?? '' }}">
+                                        @error('latitude')
                                             <div id="" role="alert" class="invalid-feedback">{{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                     <div class="col-lg-4 mb-3">
-                                        <div class="input-group mb-3">
-                                            <input type="number" wire:model="op_balance"
-                                                class="text-end form-control form-control-sm">
-                                            <select wire:model="cr_dr" class="form-control form-control-sm"
-                                                style="max-width: 60px;">
-                                                <option selected>Cr/Dr</option>
-                                                <option value="Cr">Cr</option>
-                                                <option value="Dr">Dr</option>
-                                            </select>
-                                        </div>
-                                        @error('op_balance')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
-                                            </div>
-                                        @enderror
-                                        @error('cr_dr')
+                                        <select class="form-control form-control-sm" wire:model="status">
+                                            <option value="">Select Status</option>
+                                            <option value="in_progress">In Progress</option>
+                                            <option value="pending_payment">Pending Payment</option>
+                                            <option value="completed">Completed</option>
+                                        </select>
+                                        @error('status')
                                             <div id="" role="alert" class="invalid-feedback">{{ $message }}
                                             </div>
                                         @enderror

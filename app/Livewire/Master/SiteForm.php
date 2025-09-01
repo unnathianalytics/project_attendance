@@ -10,14 +10,13 @@ class SiteForm extends Component
 {
     public ?Site $site = null;
 
-    public $name;
-
+    public $name, $account_id, $address, $longitude, $latitude, $status;
 
     public function mount(?Site $site = null)
     {
         if ($site) {
             $this->site = $site;
-            $this->fill($site->only(['name']));
+            $this->fill($site->only(['name', 'account_id', 'address', 'longitude', 'latitude', 'status']));
         }
     }
 
@@ -25,11 +24,12 @@ class SiteForm extends Component
     {
         $data = $this->validate([
             'name'    => 'required|string|max:255',
-            'email'   => 'nullable|email|max:255',
-            'op_balance' => 'required|numeric',
-            'cr_dr' => 'required|in:Cr,Dr',
+            'account_id' => 'required|exists:accounts,id',
+            'address' => 'required|string|max:255',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'status' => 'required|in:in_progress,pending_payment,completed',
         ]);
-
 
         $site = Site::updateOrCreate(
             ['id' => $this->site?->id],
