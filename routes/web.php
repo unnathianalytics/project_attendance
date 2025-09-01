@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\Customer;
 use App\Livewire\Master\CustomerForm;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,7 +18,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::view('/master/customer', 'master.customer.create')->name('customer.create');
-    Route::view('/master/{customer}/customer', 'master.customer.edit')->name('customer.edit');
+    Route::get('/master/{customer}/customer', fn(Customer $customer) => view('master.customer.edit', ['customer' => $customer]))->name('customer.edit');
+    Route::view('/master/customers',  'master.customer.index')->name('customer.index');
 });
 
 
