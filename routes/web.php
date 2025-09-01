@@ -16,8 +16,8 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/master/customer', CustomerForm::class)->name('customer.create');
-    Route::get('/master/{customer}/customer', CustomerForm::class)->name('customer.edit');
+    Route::view('/master/customer', 'master.customer.create')->name('customer.create');
+    Route::view('/master/{customer}/customer', 'master.customer.edit')->name('customer.edit');
 });
 
 

@@ -8,6 +8,6 @@ class CustomerForm extends Component
 {
     public function render()
     {
-        return view('master.customer');
+        return view('livewire.master.customer-form');
     }
 }
