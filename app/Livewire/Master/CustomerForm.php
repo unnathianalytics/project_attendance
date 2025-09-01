@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Master;
 
+use Log;
 use Livewire\Component;
 use App\Models\Customer;
 
@@ -9,7 +10,6 @@ class CustomerForm extends Component
 {
     public ?Customer $customer = null;
 
-    // Form fields (adjust according to your customers table)
     public $name;
     public $email;
     public $op_balance;
@@ -18,7 +18,6 @@ class CustomerForm extends Component
     public function mount(?Customer $customer = null)
     {
         if ($customer) {
-            // Editing mode
             $this->customer = $customer;
             $this->fill($customer->only(['name', 'email', 'op_balance', 'cr_dr']));
         }
@@ -33,17 +32,12 @@ class CustomerForm extends Component
             'cr_dr' => 'required|in:Cr,Dr',
         ]);
 
-        if ($this->customer) {
-            // Update existing
-            $this->customer->update($data);
-            session()->flash('success', 'Customer updated successfully.');
-        } else {
-            // Create new
-            Customer::create($data);
-            session()->flash('success', 'Customer created successfully.');
-            $this->reset();
-        }
 
+        $customer = Customer::updateOrCreate(
+            ['id' => $this->customer?->id],
+            $data
+        );
+        session()->flash('success', 'Customer updated successfully.');
         return redirect()->route('customer.index');
     }
     public function render()

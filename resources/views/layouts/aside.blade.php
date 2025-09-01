@@ -42,8 +42,8 @@
                                         <p>Create</p>
                                     </a>
                                 </li>
-                                <li class="nav-item"> <a href="#" class="nav-link"> <i
-                                            class="nav-icon bi bi-record-circle-fill"></i>
+                                <li class="nav-item"> <a wire:navigate href="{{ route('customer.index') }}"
+                                        class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
                                         <p>List</p>
                                     </a> </li>
                             </ul>

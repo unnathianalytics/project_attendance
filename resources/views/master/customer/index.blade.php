@@ -33,7 +33,6 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Opening Balance</th>
-                                            <th>Cr/Dr</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -42,8 +41,8 @@
                                             <tr>
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->email }}</td>
-                                                <td>{{ $customer->op_balance }}</td>
-                                                <td>{{ $customer->cr_dr }}</td>
+                                                <td class="text-end">{{ $customer->op_balance }}
+                                                    <small>{{ $customer->cr_dr }}</small></td>
                                                 <td>
                                                     <a href="{{ route('customer.edit', $customer) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>

@@ -29,7 +29,6 @@ class Account extends Model
         'gstin',
         'cr_dr',
         'op_balance',
-        'basic_salary',
         'is_editable',
         'is_deletable',
         'image',

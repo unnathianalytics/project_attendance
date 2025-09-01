@@ -192,7 +192,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Demo Site Owner',
             'is_registered' => false,
             'op_balance' => 0,
-            'cr_dr' => 'dr',
+            'cr_dr' => 'Dr',
             'is_editable' => 1,
             'is_deletable' => 1,
         ]);

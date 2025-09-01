@@ -45,8 +45,8 @@
                                     </div>
                                     <div class="col-lg-4 mb-3">
                                         <div class="input-group mb-3">
-                                            <input type="text" wire:model="op_balance"
-                                                class="form-control form-control-sm">
+                                            <input type="number" wire:model="op_balance"
+                                                class="text-end form-control form-control-sm">
                                             <select wire:model="cr_dr" class="form-control form-control-sm">
                                                 <option selected>Cr/Dr</option>
                                                 <option value="Cr">Cr</option>
