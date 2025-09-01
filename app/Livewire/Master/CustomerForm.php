@@ -30,7 +30,7 @@ class CustomerForm extends Component
             'name'    => 'required|string|max:255',
             'email'   => 'nullable|email|max:255',
             'op_balance' => 'required|numeric',
-            'cr_dr' => 'required|in:cr,dr',
+            'cr_dr' => 'required|in:Cr,Dr',
         ]);
 
         if ($this->customer) {

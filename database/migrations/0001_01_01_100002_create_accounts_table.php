@@ -25,14 +25,12 @@ return new
                 $table->string('pan', 10)->nullable();
                 $table->boolean('is_additive')->default(true);
                 $table->decimal('op_balance')->default('0.00');
-                $table->enum('cr_dr', ['cr', 'dr'])->default('dr');
-                $table->decimal('basic_salary')->default(0);
+                $table->enum('cr_dr', ['Cr', 'Dr'])->default('Dr');
                 $table->boolean('is_editable')->default(true);
                 $table->boolean('is_deletable')->default(true);
                 $table->tinyText('image')->nullable();
                 $table->foreignId('user')->default(1);
                 $table->timestamps();
-                $table->foreign('group_id')->references('id')->on('account_groups')->onDelete('cascade');
             });
         }
 

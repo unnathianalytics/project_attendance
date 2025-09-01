@@ -49,8 +49,8 @@
                                                 class="form-control form-control-sm">
                                             <select wire:model="cr_dr" class="form-control form-control-sm">
                                                 <option selected>Cr/Dr</option>
-                                                <option value="cr">Cr</option>
-                                                <option value="dr">Dr</option>
+                                                <option value="Cr">Cr</option>
+                                                <option value="Dr">Dr</option>
                                             </select>
                                         </div>
                                         @error('op_balance')
