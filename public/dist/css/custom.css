@@ -1,0 +1,22 @@
+@import url('adminlte.css');
+
+.card-primary,
+.card-secondary,
+.card-success,
+.card-danger,
+.card-warning,
+.card-info,
+.card-light,
+.card-dark {
+    border-top-width: 2px;
+    border-top-color: var(--bs-primary);
+}
+
+.card-header {
+    background: #fff !important;
+    color: #000 !important;
+}
+
+nav {
+    font-size: 0.85rem;
+}
