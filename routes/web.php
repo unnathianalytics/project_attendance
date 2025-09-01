@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Customer;
-use App\Livewire\Master\CustomerForm;
+use App\Models\{Customer, Site};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -18,6 +17,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/master/customer', 'master.customer.create')->name('customer.create');
     Route::get('/master/{customer}/customer', fn(Customer $customer) => view('master.customer.edit', ['customer' => $customer]))->name('customer.edit');
     Route::view('/master/customers',  'master.customer.index')->name('customer.index');
+
+    //Masters - Site
+    Route::view('/master/site', 'master.site.create')->name('site.create');
+    Route::get('/master/{site}/site', fn(Site $site) => view('master.site.edit', ['site' => $site]))->name('site.edit');
+    Route::view('/master/sites',  'master.site.index')->name('site.index');
 });
 
 

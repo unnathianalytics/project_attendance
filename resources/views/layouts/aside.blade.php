@@ -49,6 +49,25 @@
                             </ul>
                         </li>
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>
+                                    Sites
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a wire:navigate href="{{ route('site.create') }}"
+                                        class="nav-link">
+                                        <i class="nav-icon bi bi-record-circle-fill"></i>
+                                        <p>Create</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item"> <a wire:navigate href="{{ route('site.index') }}"
+                                        class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
+                                        <p>List</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Level 2</p>
                             </a> </li>
                     </ul>
@@ -100,7 +119,8 @@
                             </a> </li>
                     </ul>
                 </li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i
+                            class="nav-icon bi bi-pencil-square"></i>
                         <p>
                             Forms
                             <i class="nav-arrow bi bi-chevron-right"></i>
