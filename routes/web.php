@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\{Customer, Site, Labor};
 use Illuminate\Support\Facades\Route;
+use App\Models\{Customer, Site, Labor, Attendance};
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -27,6 +27,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/master/labor', 'master.labor.create')->name('labor.create');
     Route::get('/master/{labor}/labor', fn(Labor $labor) => view('master.labor.edit', ['labor' => $labor]))->name('labor.edit');
     Route::view('/master/labors',  'master.labor.index')->name('labor.index');
+
+    //Transactions - Attendance
+    Route::view('/transaction/attendance', 'transaction.attendance.create')->name('attendance.create');
+    Route::get('/transaction/{attendance}/labor', fn(Attendance $attendance) => view('transaction.attendance.edit', ['attendance' => $attendance]))->name('attendance.edit');
+    Route::view('/transaction/attendances',  'transaction.attendance.index')->name('attendance.index');
 });
 
 
