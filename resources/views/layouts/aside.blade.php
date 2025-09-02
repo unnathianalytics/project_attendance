@@ -33,6 +33,8 @@
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>
                                     Labor
+                                    <span
+                                        class="nav-badge badge text-bg-secondary me-3">{{ \App\Models\Labor::count() }}</span>
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
@@ -52,6 +54,8 @@
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>
                                     Customers
+                                    <span
+                                        class="nav-badge badge text-bg-secondary me-3">{{ \App\Models\Customer::count() }}</span>
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
@@ -71,6 +75,8 @@
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>
                                     Sites
+                                    <span
+                                        class="nav-badge badge text-bg-secondary me-3">{{ \App\Models\Site::count() }}</span>
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
