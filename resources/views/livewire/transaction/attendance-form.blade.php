@@ -19,7 +19,7 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                     <div class="card card-outline card-success">
                         <div class="card-header">
                             <div class="card-title">Attendance Form</div>
@@ -52,58 +52,101 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-3 mb-3">
-                                        <select class="form-control form-control-sm" wire:model.live="user_id">
-                                            <option value="">Select Labor</option>
-                                            @foreach (\App\Models\Labor::all() as $labor)
-                                                <option value="{{ $labor->id }}">{{ $labor->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('user_id')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
+                                    <div class="col-lg-12">
+                                        <table class="table table-sm-table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Labor</th>
+                                                    <th>Days</th>
+                                                    <th>Salary</th>
+                                                    <th>Payable</th>
+                                                    <th>Note</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($attendances as $index => $att)
+                                                    <tr>
+                                                        <td>
+                                                            <select class="form-control form-control-sm"
+                                                                wire:model.live="attendances.{{ $index }}.user_id"
+                                                                wire:change="updateUserId({{ $index }})">
+                                                                <option value="">Select Labor</option>
+                                                                @foreach (\App\Models\Labor::all() as $labor)
+                                                                    <option value="{{ $labor->id }}">
+                                                                        {{ $labor->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error("attendances.$index.user_id")
+                                                                <div id="" role="alert" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                wire:model.live="attendances.{{ $index }}.salary_per_unit"
+                                                                placeholder="Basic Salary">
+                                                            @error("attendances.$index.salary_per_unit")
+                                                                <div id="" role="alert" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control form-control-sm"
+                                                                wire:model.live="attendances.{{ $index }}.attendance_unit">
+                                                                <option value="">Select Days</option>
+                                                                <option value="0.5">Half Day</option>
+                                                                <option value="1">Full Day</option>
+                                                                <option value="1.5">One and Half Day</option>
+                                                                <option value="2">Two Days</option>
+                                                                <option value="2.5">Two and Half Days</option>
+                                                                <option value="3">Three Days</option>
+                                                            </select>
+                                                            @error("attendances.$index.attendance_unit")
+                                                                <div id="" role="alert" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                wire:model="attendances.{{ $index }}.payable"
+                                                                placeholder="Payable">
+                                                            @error("attendances.$index.payable")
+                                                                <div id="" role="alert" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                wire:model="attendances.{{ $index }}.note"
+                                                                placeholder="Note">
+                                                            @error("attendances.$index.note")
+                                                                <div id="" role="alert" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                wire:click="removeAttendance({{ $index }})"><i
+                                                                    class="fa fa-close"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
 
-                                    <div class="col-lg-2 mb-3"><input type="number"
-                                            class="form-control form-control-sm"
-                                            wire:model.live.debounce.300ms="salary_per_unit" placeholder="Basic Salary"
-                                            value="{{ $attendance->salary_per_unit ?? '' }}">
-                                        @error('salary_per_unit')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
+                                        <div class="row mb-3">
+                                            <div class="col-lg-12">
+                                                <button type="button" class="btn btn-info btn-sm"
+                                                    wire:click="addAttendance">Add Attendance</button>
                                             </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-2 mb-3">
-                                        <select class="form-control form-control-sm" wire:model.live="attendance_unit">
-                                            <option value="">Select Days</option>
-                                            <option value="0.5">Half Day</option>
-                                            <option value="1">Full Day</option>
-                                            <option value="1.5">One and Half Day</option>
-                                            <option value="2">Two Days</option>
-                                            <option value="2.5">Two and Half Days</option>
-                                            <option value="3">Three Days</option>
-                                        </select>
-                                        @error('attendance_unit')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-2 mb-3"><input type="number"
-                                            class="form-control form-control-sm" readonly wire:model="payable"
-                                            placeholder="Payable" value="{{ $attendance->payable ?? '' }}">
-                                        @error('payable')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-3 mb-3"> <input type="text"
-                                            class="form-control form-control-sm" wire:model="note" placeholder="Note"
-                                            value="{{ $attendance->note ?? '' }}">
-                                        @error('note')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
-                                            </div>
-                                        @enderror
+                                        </div>
                                     </div>
 
                                 </div>
@@ -112,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                 </div>
             </div>
         </div>
