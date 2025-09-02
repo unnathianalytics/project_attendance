@@ -27,15 +27,19 @@ class AttendanceForm extends Component
         $this->salary_per_unit = $labor?->basic_salary;
         $this->calculatePayable();
     }
-    public function updatedAttendanceUnit($value)
+    public function updatedAttendanceUnit()
+    {
+        $this->calculatePayable();
+    }
+    public function updatedSalaryPerUnit()
     {
         $this->calculatePayable();
     }
 
     public function calculatePayable()
     {
-        $perUnit = $this->salary_per_unit ?? 0;
-        $attendanceUnit = $this->attendance_unit ?? 0;
+        $perUnit = (float)$this->salary_per_unit ?? 0;
+        $attendanceUnit = (float)$this->attendance_unit ?? 0;
         $this->payable = $perUnit * $attendanceUnit;
     }
 

@@ -66,8 +66,8 @@
                                     </div>
 
                                     <div class="col-lg-2 mb-3"><input type="number"
-                                            class="form-control form-control-sm" wire:model="salary_per_unit"
-                                            placeholder="Basic Salary"
+                                            class="form-control form-control-sm"
+                                            wire:model.live.debounce.300ms="salary_per_unit" placeholder="Basic Salary"
                                             value="{{ $attendance->salary_per_unit ?? '' }}">
                                         @error('salary_per_unit')
                                             <div id="" role="alert" class="invalid-feedback">{{ $message }}
