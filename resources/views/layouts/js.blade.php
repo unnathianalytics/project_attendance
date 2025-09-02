@@ -42,4 +42,10 @@
             }
         });
     });
+
+    document.querySelectorAll('input, textarea').forEach(el => {
+        el.addEventListener('focus', function() {
+            this.select();
+        });
+    });
 </script>

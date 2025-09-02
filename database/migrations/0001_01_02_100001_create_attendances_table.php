@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id')->constrained('accounts');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('site_id')->constrained('sites');
             $table->date('date');
             $table->decimal('attendance_unit');

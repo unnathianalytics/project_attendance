@@ -11,9 +11,9 @@ class Attendance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'account_id',
-        'site_id',
         'date',
+        'user_id',
+        'site_id',
         'attendance_unit',
         'salary_per_unit',
         'payable',
@@ -22,7 +22,7 @@ class Attendance extends Model
 
     public function labor(): BelongsTo
     {
-        return $this->belongsTo(Labor::class, 'account_id');
+        return $this->belongsTo(Labor::class, 'user_id');
     }
     public function site(): BelongsTo
     {
