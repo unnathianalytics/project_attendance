@@ -34,7 +34,7 @@
                                 <div class="col-md-3">
                                     <label for="from_date" class="form-label">From Date</label>
                                     <input type="date" wire:model.live="from_date" id="from_date"
-                                        class="form-control @error('from_date') is-invalid @enderror"
+                                        class="form-control form-control-sm @error('from_date') is-invalid @enderror"
                                         max="{{ $to_date }}" />
                                     @error('from_date')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -43,7 +43,7 @@
                                 <div class="col-md-3">
                                     <label for="to_date" class="form-label">To Date</label>
                                     <input type="date" wire:model.live="to_date" id="to_date"
-                                        class="form-control @error('to_date') is-invalid @enderror"
+                                        class="form-control form-control-sm @error('to_date') is-invalid @enderror"
                                         min="{{ $from_date }}" max="{{ now()->format('Y-m-d') }}" />
                                     @error('to_date')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -74,14 +74,14 @@
                                     <tbody>
                                         @forelse ($this->attendances as $attendance)
                                             <tr wire:key="attendance-{{ $attendance->id }}">
-                                                <td>{{ $attendance->date }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
                                                 <td>{{ $attendance->labor->name }}</td>
                                                 <td>{{ $attendance->site->name }}</td>
                                                 <td class="text-end">{{ $attendance->attendance_unit }}
                                                     <small>{{ $attendance->cr_dr }}</small>
                                                 </td>
                                                 <td class="text-end">{{ rupees($attendance->payable) }}</td>
-                                                <td>
+                                                <td class="text-center">
                                                     <a href="{{ route('attendance.edit', $attendance) }}"
                                                         class="btn btn-sm btn-warning btn-flat">Edit</a>
                                                 </td>
@@ -94,6 +94,7 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                {{ $this->attendances->links() }}
                             </div>
                         </div>
                     </div>

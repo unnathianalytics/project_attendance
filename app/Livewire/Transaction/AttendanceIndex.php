@@ -6,10 +6,13 @@ use Livewire\Component;
 use App\Models\Attendance;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
+use Livewire\WithPagination;
 use Carbon\Carbon;
 
 class AttendanceIndex extends Component
 {
+    use WithPagination;
+
     #[Validate('required|date|before_or_equal:to_date')]
     public $from_date;
 
@@ -18,12 +21,15 @@ class AttendanceIndex extends Component
 
     public $site_id = '';
     public $labor_id = '';
+    public $perPage = 10;
+
+    protected $paginationTheme = 'bootstrap';
 
     public function mount()
     {
         // Set default dates only if not provided
-        $this->from_date = $this->from_date ?? now()->startOfMonth()->format('Y-m-d');
-        $this->to_date = $this->to_date ?? now()->format('Y-m-d');
+        $this->from_date ??= now()->startOfMonth()->format('Y-m-d');
+        $this->to_date ??= now()->format('Y-m-d');
     }
 
     public function updatedFromDate($value)
@@ -37,6 +43,9 @@ class AttendanceIndex extends Component
 
         // Reset validation errors for to_date if they exist
         $this->resetErrorBag('to_date');
+
+        // Reset pagination when filters change
+        $this->resetPage();
     }
 
     public function updatedToDate($value)
@@ -50,18 +59,26 @@ class AttendanceIndex extends Component
 
         // Reset validation errors for from_date if they exist
         $this->resetErrorBag('from_date');
+
+        // Reset pagination when filters change
+        $this->resetPage();
     }
 
     public function updatedSiteId()
     {
-        // Reset computed property cache when filter changes
-        unset($this->attendances);
+        // Reset pagination when filter changes
+        $this->resetPage();
     }
 
     public function updatedLaborId()
     {
-        // Reset computed property cache when filter changes
-        unset($this->attendances);
+        // Reset pagination when filter changes
+        $this->resetPage();
+    }
+
+    public function updatedPerPage()
+    {
+        $this->resetPage();
     }
 
     #[Computed]
@@ -69,7 +86,7 @@ class AttendanceIndex extends Component
     {
         // Only fetch data if dates are valid
         if (!$this->from_date || !$this->to_date) {
-            return collect();
+            return Attendance::query()->paginate(0); // Return empty paginated result
         }
 
         // Additional business logic validation
@@ -88,7 +105,7 @@ class AttendanceIndex extends Component
             ->when($this->site_id, fn($query) => $query->where('site_id', $this->site_id))
             ->when($this->labor_id, fn($query) => $query->where('labor_id', $this->labor_id))
             ->orderBy('date', 'desc') // Add ordering for better UX
-            ->get();
+            ->paginate($this->perPage);
     }
 
     public function render()

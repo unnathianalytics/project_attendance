@@ -1,4 +1,4 @@
-<footer class="app-footer">
+{{-- <footer class="app-footer">
     <div class="float-end d-none d-sm-inline">Unnathi</div>
     <strong>
         Copyright &copy; 2014-2025&nbsp;
@@ -8,4 +8,4 @@
 </footer>
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <!-- Toasts will be dynamically inserted here -->
-</div>
+</div> --}}

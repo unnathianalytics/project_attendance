@@ -90,6 +90,7 @@ class AttendanceForm extends Component
         $this->validate([
             'date' => 'required|date',
             'site_id' => 'required|exists:sites,id',
+            'attendances' => 'required|array|min:1',
             'attendances.*.user_id' => 'required|exists:accounts,id',
             'attendances.*.attendance_unit' => 'required|numeric',
             'attendances.*.salary_per_unit' => 'required|numeric',
