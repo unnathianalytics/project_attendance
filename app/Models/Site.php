@@ -21,9 +21,17 @@ class Site extends Model
     ];
 
     //Grok recommends this
+    // Add this optimized method to your Site.php model
     public static function getSitesWithinDistance($userLat, $userLon, $distance = 100)
     {
-        $sites = self::all(); // Fetch all sites
+        // Calculate rough bounding box to reduce database load
+        $latRange = $distance / 111000; // Roughly 111km per degree latitude
+        $lonRange = $distance / (111000 * cos(deg2rad($userLat))); // Longitude varies by latitude
+
+        $sites = self::whereBetween('latitude', [$userLat - $latRange, $userLat + $latRange])
+            ->whereBetween('longitude', [$userLon - $lonRange, $userLon + $lonRange])
+            ->get();
+
         $nearbySites = [];
 
         foreach ($sites as $site) {
