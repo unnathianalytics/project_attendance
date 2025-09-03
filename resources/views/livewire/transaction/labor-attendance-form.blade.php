@@ -69,6 +69,12 @@
             </div>
         </div>
     </div>
+    <div x-data>
+        @this.on('low-accuracy-warning', (event) => {
+        alert(`Location accuracy is too low (${event.accuracy.toFixed(2)} meters). Please move to an open area for
+        better GPS signal.`);
+        });
+    </div>
 </div>
 @push('scripts')
     <script>
@@ -76,19 +82,37 @@
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(
                     (position) => {
-                        @this.updateLocation(position.coords.latitude, position.coords.longitude);
+                        if (position.coords.accuracy <= 20) {
+                            @this.updateLocation(position.coords.latitude, position.coords.longitude);
+                        } else {
+                            @this.dispatch('low-accuracy-warning', {
+                                accuracy: position.coords.accuracy
+                            });
+                        }
                     },
                     (error) => {
                         console.error('Geolocation error:', error);
-                        alert('Please enable location services to mark attendance.');
+                        let message = 'Please enable location services to mark attendance.';
+                        if (error.code === 1) {
+                            message =
+                                'Location access denied. Please allow location permissions in your browser settings.';
+                        } else if (error.code === 2) {
+                            message =
+                                'Location unavailable. Ensure GPS is enabled and try again in an open area.';
+                        } else if (error.code === 3) {
+                            message = 'Location request timed out. Please try again.';
+                        }
+                        alert(message);
                     }, {
-                        enableHighAccuracy: true, // Requests GPS for higher accuracy
-                        timeout: 10000, // Wait up to 10 seconds for a response
-                        maximumAge: 0 // Do not use cached location data
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
                     }
                 );
             } else {
-                alert('Geolocation is not supported by this browser.');
+                alert(
+                    'Geolocation is not supported by this browser. Please use a modern browser on a GPS-enabled device.'
+                    );
             }
         });
     </script>
