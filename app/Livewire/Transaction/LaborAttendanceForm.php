@@ -14,7 +14,7 @@ class LaborAttendanceForm extends Component
     public $selectedSiteId;
     public $nearbySites = [];
     public $isWithinRange = false;
-    public $proximityThreshold = 20; // Max distance in meters for attendance
+    public $proximityThreshold = 30; // Max distance in meters for attendance
     public $locationFetched = false; // Track if location has been fetched
     public $selectedSiteDistance = null; // Store distance to selected site
 
