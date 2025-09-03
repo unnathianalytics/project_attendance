@@ -116,6 +116,11 @@
                                 <p>List</p>
                             </a>
                         </li>
+                        <li class="nav-item"> <a wire:navigate href="{{ route('attendance.employee.create') }}"
+                                class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
+                                <p>Employee Attendance</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

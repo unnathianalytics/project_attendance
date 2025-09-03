@@ -32,6 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/transaction/attendance', 'transaction.attendance.create')->name('attendance.create');
     Route::get('/transaction/{attendance}/labor', fn(Attendance $attendance) => view('transaction.attendance.edit', ['attendance' => $attendance]))->name('attendance.edit');
     Route::view('/transaction/attendances',  'transaction.attendance.index')->name('attendance.index');
+
+    //Transactions - Attendance - Employee
+    Route::view('/transaction/attendance/employee', 'transaction.attendance.employee-create')->name('attendance.employee.create');
 });
 
 

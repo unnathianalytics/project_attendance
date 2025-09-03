@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\GeoService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,37 @@ class Site extends Model
         'latitude',
         'status',
     ];
+
+    //Grok recommends this
+    public static function getSitesWithinDistance($userLat, $userLon, $distance = 100)
+    {
+        $earthRadius = 6371000; // Meters
+        return self::selectRaw("
+        id, name, latitude, longitude,
+        ($earthRadius * acos(
+            cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) +
+            sin(radians(?)) * sin(radians(latitude))
+        )) AS distance
+    ", [$userLat, $userLon, $userLat])
+            ->having('distance', '<=', $distance)
+            ->orderBy('distance')
+            ->get();
+    }
+    // public static function getSitesWithinDistance($userLat, $userLon, $distance = 100)
+    // {
+    //     $sites = self::all();
+    //     $nearbySites = [];
+    //     foreach ($sites as $site) {
+    //         $distanceToSite = GeoService::calculateDistance($userLat, $userLon, $site->latitude, $site->longitude);
+    //         if ($distanceToSite <= $distance) {
+    //             $nearbySites[] = [
+    //                 'site' => $site,
+    //                 'distance' => round($distanceToSite, 2),
+    //             ];
+    //         }
+    //     }
+    //     return $nearbySites;
+    // }
 
     public function customer(): BelongsTo
     {
