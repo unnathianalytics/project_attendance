@@ -140,7 +140,11 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-
+                                        @error('attendances')
+                                            <div id="" role="alert" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                         <div class="row mb-3">
                                             <div class="col-lg-12">
                                                 <button type="button" class="btn btn-info btn-sm"
