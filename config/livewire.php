@@ -1,92 +1,44 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Class Namespace
-    |--------------------------------------------------------------------------
-    |
-    | This value sets the root namespace for Livewire component classes.
-    |
-    */
-
     'class_namespace' => 'App\\Livewire',
-
-    /*
-    |--------------------------------------------------------------------------
-    | View Path
-    |--------------------------------------------------------------------------
-    |
-    | This value is the path where Livewire will look for component views.
-    |
-    */
-
     'view_path' => resource_path('views/livewire'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Layout
-    |--------------------------------------------------------------------------
-    |
-    | This value is the default layout that Livewire components will be
-    | wrapped in when rendered via routes.
-    |
-    */
-
     'layout' => 'components.layouts.app',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Asset URL
-    |--------------------------------------------------------------------------
-    |
-    | This is used to generate the URL to Livewire’s JavaScript assets.
-    | Keep it null so Laravel uses APP_URL automatically.
-    |
-    */
-
-    'asset_url' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Livewire Update URI
-    |--------------------------------------------------------------------------
-    |
-    | Leave null so Livewire auto-prepends your subfolder (from APP_URL).
-    | Example:
-    |   APP_URL = https://example.com/siteTrackr
-    |   => /siteTrackr/livewire/update
-    |
-    */
-
-    'update_route' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Temporary File Uploads
-    |--------------------------------------------------------------------------
-    */
-
+    'lazy_placeholder' => null,
     'temporary_file_upload' => [
-        'disk' => null,
-        'rules' => null,
-        'directory' => null,
-        'middleware' => 'throttle:60,1',
-        'preview_mimes' => [
-            'image/jpeg',
-            'image/png',
-            'image/gif',
-            'application/pdf',
-            'text/plain',
+        'disk' => null,        // Example: 'local', 's3'              | Default: 'default'
+        'rules' => null,       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
+        'directory' => null,   // Example: 'tmp'                      | Default: 'livewire-tmp'
+        'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
+        'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
+            'png',
+            'gif',
+            'bmp',
+            'svg',
+            'wav',
+            'mp4',
+            'mov',
+            'avi',
+            'wmv',
+            'mp3',
+            'm4a',
+            'jpg',
+            'jpeg',
+            'mpga',
+            'webp',
+            'wma',
         ],
+        'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
+        'cleanup' => true, // Should cleanup temporary uploads older than 24 hrs...
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Legacy Model Binding
-    |--------------------------------------------------------------------------
-    */
-
+    'render_on_redirect' => false,
     'legacy_model_binding' => false,
+    'inject_assets' => true,
+    'navigate' => [
+        'show_progress_bar' => true,
+        'progress_bar_color' => '#2299dd',
+    ],
+    'inject_morph_markers' => true,
+    'pagination_theme' => 'bootstrap',
+    'asset_url' => env('ASSET_URL', null),  // Falls back to your .env ASSET_URL
 ];
