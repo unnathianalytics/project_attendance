@@ -38,6 +38,7 @@
                                             <th>Name</th>
                                             <th>Customer</th>
                                             <th>Customer</th>
+                                            <th>Location</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -48,6 +49,12 @@
                                                 <td>{{ $site->customer->name }}</td>
                                                 <td class="align-middle">
                                                     {{ $site->siteStatus() }}
+                                                </td>
+                                                <td>
+                                                    @php $at = "@" @endphp
+                                                    <a target="_blank" class="btn btn-sm btn-info btn-flat"
+                                                        href="https://www.google.com/maps/{{ $at . $site->longitude }},{{ $site->latitude }},50m">See
+                                                        <i class="bi bi-map"></i></a>
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('site.edit', $site) }}"
