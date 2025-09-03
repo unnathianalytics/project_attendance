@@ -40,5 +40,5 @@ return [
     ],
     'inject_morph_markers' => true,
     'pagination_theme' => 'bootstrap',
-    'asset_url' => env('APP_URL', 'http://localhost') . '/livewire',
+    'asset_url' => env('APP_URL', 'http://localhost') . '/livewire/livewire.js',
 ];
