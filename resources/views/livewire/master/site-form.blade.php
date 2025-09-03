@@ -59,7 +59,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-4 mb-3"> <input type="text"
+                                    <div class="col-lg-4 mb-3"> <input type="number"
                                             class="form-control form-control-sm" wire:model="longitude"
                                             placeholder="Longitude" value="{{ $site->longitude ?? '' }}">
                                         @error('longitude')
@@ -67,7 +67,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-4 mb-3"> <input type="text"
+                                    <div class="col-lg-4 mb-3"> <input type="number"
                                             class="form-control form-control-sm" wire:model="latitude"
                                             placeholder="Latitude" value="{{ $site->latitude ?? '' }}">
                                         @error('latitude')
