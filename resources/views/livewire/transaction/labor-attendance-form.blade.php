@@ -69,45 +69,75 @@
             </div>
         </div>
     </div>
-</div>
-@push('scripts')
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(
-                    (position) => {
-                        if (position.coords.accuracy <= 20) {
-                            @this.updateLocation(position.coords.latitude, position.coords.longitude);
-                        } else {
-                            @this.dispatch('low-accuracy-warning', {
-                                accuracy: position.coords.accuracy
-                            });
-                        }
-                    },
-                    (error) => {
-                        console.error('Geolocation error:', error);
-                        let message = 'Please enable location services to mark attendance.';
-                        if (error.code === 1) {
-                            message =
-                                'Location access denied. Please allow location permissions in your browser settings.';
-                        } else if (error.code === 2) {
-                            message =
-                                'Location unavailable. Ensure GPS is enabled and try again in an open area.';
-                        } else if (error.code === 3) {
-                            message = 'Location request timed out. Please try again.';
-                        }
-                        alert(message);
-                    }, {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
+    <div x-data="{ geolocationStarted: false, lastLat: null, lastLon: null, lastUpdate: 0 }">
+        <script>
+            document.addEventListener('livewire:load', () => {
+                if (!Alpine.store('geolocationStarted')) {
+                    if (navigator.geolocation) {
+                        const watchId = navigator.geolocation.watchPosition(
+                            (position) => {
+                                const now = Date.now();
+                                const lat = position.coords.latitude;
+                                const lon = position.coords.longitude;
+                                const accuracy = position.coords.accuracy;
+
+                                // Calculate distance from last known position (simple approximation)
+                                let shouldUpdate = true;
+                                if (this.lastLat !== null && this.lastLon !== null) {
+                                    const distance = Math.sqrt(
+                                        Math.pow(lat - this.lastLat, 2) + Math.pow(lon - this.lastLon, 2)
+                                    ) * 111139; // Convert degrees to meters (approximate)
+                                    shouldUpdate = distance > 10 || now - this.lastUpdate >
+                                    5000; // Update if moved >10m or 5s elapsed
+                                }
+
+                                if (shouldUpdate && accuracy <= 20) {
+                                    @this.updateLocation(lat, lon);
+                                    this.lastLat = lat;
+                                    this.lastLon = lon;
+                                    this.lastUpdate = now;
+                                } else if (accuracy > 20) {
+                                    @this.dispatch('low-accuracy-warning', {
+                                        accuracy: accuracy
+                                    });
+                                }
+                            },
+                            (error) => {
+                                console.error('Geolocation error:', error);
+                                let message = 'Please enable location services to mark attendance.';
+                                if (error.code === 1) {
+                                    message =
+                                        'Location access denied. Please allow location permissions in your browser settings.';
+                                } else if (error.code === 2) {
+                                    message =
+                                        'Location unavailable. Ensure GPS is enabled and try again in an open area.';
+                                } else if (error.code === 3) {
+                                    message = 'Location request timed out. Please try again.';
+                                }
+                                alert(message);
+                            }, {
+                                enableHighAccuracy: true,
+                                timeout: 10000,
+                                maximumAge: 0
+                            }
+                        );
+
+                        // Store watchId to clear later if needed
+                        Alpine.store('geolocationWatchId', watchId);
+                        Alpine.store('geolocationStarted', true);
+                    } else {
+                        alert(
+                            'Geolocation is not supported by this browser. Please use a modern browser on a GPS-enabled device.');
                     }
-                );
-            } else {
-                alert(
-                    'Geolocation is not supported by this browser. Please use a modern browser on a GPS-enabled device.'
-                );
-            }
+                }
+            });
+        </script>
+    </div>
+
+    <div x-data>
+        @this.on('low-accuracy-warning', (event) => {
+        alert(`Location accuracy is too low (${event.accuracy.toFixed(2)} meters). Please move to an open area for
+        better GPS signal.`);
         });
-    </script>
-@endpush
+    </div>
+</div>
