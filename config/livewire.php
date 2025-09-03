@@ -169,5 +169,6 @@ return [
     |
     */
 
-    'pagination_theme' => 'tailwind',
+    'pagination_theme' => 'bootstrap',
+    'asset_url' => env('APP_URL'),
 ];
