@@ -59,15 +59,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="col-lg-4 mb-3"> <input type="number"
-                                            class="form-control form-control-sm" wire:model="longitude"
-                                            placeholder="Longitude" value="{{ $site->longitude ?? '' }}">
-                                        @error('longitude')
-                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-4 mb-3"> <input type="number"
+                                    <div class="col-lg-4 mb-3"> <input type="text"
                                             class="form-control form-control-sm" wire:model="latitude"
                                             placeholder="Latitude" value="{{ $site->latitude ?? '' }}">
                                         @error('latitude')
@@ -75,6 +67,15 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    <div class="col-lg-4 mb-3"> <input type="text"
+                                            class="form-control form-control-sm" wire:model="longitude"
+                                            placeholder="Longitude" value="{{ $site->longitude ?? '' }}">
+                                        @error('longitude')
+                                            <div id="" role="alert" class="invalid-feedback">{{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
                                     <div class="col-lg-4 mb-3">
                                         <select class="form-control form-control-sm" wire:model="status">
                                             <option value="">Select Status</option>

@@ -23,17 +23,23 @@ class Site extends Model
     //Grok recommends this
     public static function getSitesWithinDistance($userLat, $userLon, $distance = 100)
     {
-        $earthRadius = 6371000; // Meters
-        return self::selectRaw("
-        id, name, latitude, longitude,
-        ($earthRadius * acos(
-            cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) +
-            sin(radians(?)) * sin(radians(latitude))
-        )) AS distance
-    ", [$userLat, $userLon, $userLat])
-            ->having('distance', '<=', $distance)
-            ->orderBy('distance')
-            ->get();
+        $sites = self::all(); // Fetch all sites
+        $nearbySites = [];
+
+        foreach ($sites as $site) {
+            $distanceToSite = GeoService::calculateDistance($userLat, $userLon, $site->latitude, $site->longitude);
+            if ($distanceToSite <= $distance) {
+                $nearbySites[] = [
+                    'site' => $site,
+                    'distance' => round($distanceToSite, 2),
+                ];
+            }
+        }
+
+        // Sort by distance
+        usort($nearbySites, fn($a, $b) => $a['distance'] <=> $b['distance']);
+
+        return $nearbySites;
     }
     // public static function getSitesWithinDistance($userLat, $userLon, $distance = 100)
     // {

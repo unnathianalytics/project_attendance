@@ -26,8 +26,8 @@ class SiteForm extends Component
             'name'    => 'required|string|max:255',
             'account_id' => 'required|exists:accounts,id',
             'address' => 'required|string|max:255',
-            'longitude' => 'required|numeric',
-            'latitude' => 'required|numeric',
+            'latitude'   => 'required|numeric|between:-90,90',
+            'longitude'  => 'required|numeric|between:-180,180',
             'status' => 'required|in:in_progress,pending_payment,completed',
         ]);
 

@@ -53,7 +53,7 @@
                                                 <td>
                                                     @php $at = "@" @endphp
                                                     <a target="_blank" class="btn btn-sm btn-info btn-flat"
-                                                        href="https://www.google.com/maps/{{ $at . $site->longitude }},{{ $site->latitude }},50m">See
+                                                        href="https://www.google.com/maps/{{ $at . $site->latitude }},{{ $site->longitude }},50m">See
                                                         <i class="bi bi-map"></i></a>
                                                 </td>
                                                 <td>

@@ -60,28 +60,6 @@
                                     class="btn btn-primary mt-3">
                                     Submit Attendance
                                 </button>
-
-                                <script>
-                                    document.addEventListener('livewire:initialized', () => {
-                                        if (navigator.geolocation) {
-                                            navigator.geolocation.watchPosition(
-                                                (position) => {
-                                                    @this.updateLocation(position.coords.latitude, position.coords.longitude);
-                                                },
-                                                (error) => {
-                                                    console.error('Geolocation error:', error);
-                                                    alert('Please enable location services to mark attendance.');
-                                                }, {
-                                                    enableHighAccuracy: true,
-                                                    timeout: 5000,
-                                                    maximumAge: 0
-                                                }
-                                            );
-                                        } else {
-                                            alert('Geolocation is not supported by this browser.');
-                                        }
-                                    });
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -92,3 +70,26 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(
+                    (position) => {
+                        @this.updateLocation(position.coords.latitude, position.coords.longitude);
+                    },
+                    (error) => {
+                        console.error('Geolocation error:', error);
+                        alert('Please enable location services to mark attendance.');
+                    }, {
+                        enableHighAccuracy: true, // Requests GPS for higher accuracy
+                        timeout: 10000, // Wait up to 10 seconds for a response
+                        maximumAge: 0 // Do not use cached location data
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+    </script>
+@endpush
