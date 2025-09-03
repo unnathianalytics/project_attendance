@@ -29,7 +29,7 @@ class LaborAttendanceForm extends Component
         $this->userLon = $lon;
 
         // Fetch nearby sites (within 100 meters)
-        $this->nearbySites = Site::getSitesWithinDistance($lat, $lon, 60000);
+        $this->nearbySites = Site::getSitesWithinDistance($lat, $lon, 500);
 
         // Check if selected site is within 10-20 meters
         $this->checkProximity();
