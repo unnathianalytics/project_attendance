@@ -1,5 +1,3 @@
-@import url('adminlte.css');
-
 .form-control:focus {
     box-shadow: none !important;
     outline: none !important;
