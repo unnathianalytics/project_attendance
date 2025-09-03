@@ -69,12 +69,6 @@
             </div>
         </div>
     </div>
-    <div x-data>
-        @this.on('low-accuracy-warning', (event) => {
-        alert(`Location accuracy is too low (${event.accuracy.toFixed(2)} meters). Please move to an open area for
-        better GPS signal.`);
-        });
-    </div>
 </div>
 @push('scripts')
     <script>
@@ -112,7 +106,7 @@
             } else {
                 alert(
                     'Geolocation is not supported by this browser. Please use a modern browser on a GPS-enabled device.'
-                    );
+                );
             }
         });
     </script>
