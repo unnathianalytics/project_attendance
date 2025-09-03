@@ -2,6 +2,7 @@
 <script src="{{ asset('dist/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+{{-- livewire --}}
 @livewireScripts
 <script>
     const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper"
