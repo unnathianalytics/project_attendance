@@ -31,32 +31,17 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <label for="from_date" class="form-label">From Date</label>
-                                    <input type="date" wire:model.live="from_date" id="from_date"
-                                        class="form-control form-control-sm @error('from_date') is-invalid @enderror"
-                                        max="{{ $to_date }}" />
-                                    @error('from_date')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="to_date" class="form-label">To Date</label>
-                                    <input type="date" wire:model.live="to_date" id="to_date"
-                                        class="form-control form-control-sm @error('to_date') is-invalid @enderror"
-                                        min="{{ $from_date }}" max="{{ now()->format('Y-m-d') }}" />
+                                <div class="col-md-6">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" wire:model.live="from_date" class="input-sm form-control"
+                                            name="start" />
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" wire:model.live="to_date" class="input-sm form-control"
+                                            name="end" />
+                                    </div>
                                     @error('to_date')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    @if (session()->has('warning'))
-                                        <div class="alert alert-warning alert-dismissible fade show mt-4"
-                                            role="alert">
-                                            {{ session('warning') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -74,7 +59,8 @@
                                     <tbody>
                                         @forelse ($this->attendances as $attendance)
                                             <tr wire:key="attendance-{{ $attendance->id }}">
-                                                <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}
+                                                </td>
                                                 <td>{{ $attendance->labor->name }}</td>
                                                 <td>{{ $attendance->site->name }}</td>
                                                 <td class="text-end">{{ $attendance->attendance_unit }}
@@ -105,3 +91,38 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <link rel="stylesheet" href="{{ asset('dist/css/bootstrap-datepicker.standalone.min.css') }}">
+    <script src="{{ asset('dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        // Try multiple event listeners for better compatibility
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDatepicker();
+        });
+
+        document.addEventListener('livewire:load', function() {
+            initializeDatepicker();
+        });
+
+        // Re-initialize after Livewire updates
+        Livewire.hook('message.processed', (message, component) => {
+            initializeDatepicker();
+        });
+
+        function initializeDatepicker() {
+            // Destroy existing datepicker instances to avoid conflicts
+            $('.input-daterange').datepicker('destroy');
+
+            $('.input-daterange').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+            }).on('changeDate', function(e) {
+                let from_date = $('.input-daterange').find('input[name="start"]').val();
+                let to_date = $('.input-daterange').find('input[name="end"]').val();
+
+                @this.set('from_date', from_date);
+                @this.set('to_date', to_date);
+            });
+        }
+    </script>
+@endpush
