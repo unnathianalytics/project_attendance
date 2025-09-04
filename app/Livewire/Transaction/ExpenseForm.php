@@ -25,7 +25,7 @@ class ExpenseForm extends Component
                     'site_id' => $att->site_id,
                     'description' => $att->description,
                     'amount' => $att->amount,
-                    'payment_method' => $att->payment_method
+                    'settlement_via' => $att->settlement_via
                 ])->toArray();
         }
     }
@@ -37,7 +37,7 @@ class ExpenseForm extends Component
             'site_id' => '',
             'description' => '',
             'amount' => 0,
-            'payment_method' => '',
+            'settlement_via' => '',
         ];
     }
 
@@ -49,14 +49,25 @@ class ExpenseForm extends Component
 
     public function save()
     {
-        $this->validate([
-            'date' => 'required|date',
-            'expenses' => 'required|array|min:1',
-            'expenses.*.site_id' => 'required|exists:sites,id',
-            'expenses.*.description' => 'required|string|max:255',
-            'expenses.*.amount' => 'required|numeric',
-            'expenses.*.payment_method' => 'in:Cash,Bank/UPI,Other',
-        ]);
+        $this->validate(
+            [
+                'date' => 'required|date',
+                'expenses' => 'required|array|min:1',
+                'expenses.*.site_id' => 'required|exists:sites,id',
+                'expenses.*.description' => 'required|string|max:255',
+                'expenses.*.amount' => 'required|numeric|min:1',
+                'expenses.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
+            ],
+            [],
+            [
+                'date' => 'Date',
+                'expenses' => 'Expenses',
+                'expenses.*.site_id' => 'Site',
+                'expenses.*.description' => 'Description',
+                'expenses.*.amount' => 'Amount',
+                'expenses.*.settlement_via' => 'Settlement Via',
+            ]
+        );
 
         if ($this->expense && ($this->expense->date != $this->date)) {
             Expense::where('date', $this->expense->date)
@@ -85,7 +96,7 @@ class ExpenseForm extends Component
                     'site_id' => '',
                     'description' => '',
                     'amount' => 0,
-                    'payment_method' => '',
+                    'settlement_via' => '',
                 ]
             ];
         }

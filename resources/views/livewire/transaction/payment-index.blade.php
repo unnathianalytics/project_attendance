@@ -3,13 +3,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0 d-none">Expense List</h3>
+                    <h3 class="mb-0 d-none">Payment List</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a wire:navigate href="{{ route('dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Expense List
+                            Payment List
                         </li>
                     </ol>
                 </div>
@@ -22,11 +22,11 @@
                 <div class="col-lg-9">
                     <div class="card card-outline card-success">
                         <div class="card-header">
-                            <div class="card-title">Expense List</div>
+                            <div class="card-title">Payment List</div>
                             <div class="card-tools">
                                 <a wire:navigate class="btn btn-sm btn-secondary btn-flat float-end"
-                                    href="{{ route('expense.create') }}">New
-                                    Expense</a>
+                                    href="{{ route('payment.create') }}">New
+                                    Payment</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -64,7 +64,7 @@
                                     <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Site</th>
+                                            <th>Labor</th>
                                             <th>Amount</th>
                                             <th>Mode</th>
                                             <th>Description</th>
@@ -72,27 +72,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($this->expenses as $expense)
-                                            <tr wire:key="expense-{{ $expense->id }}">
-                                                <td>{{ \Carbon\Carbon::parse($expense->date)->format('d M Y') }}</td>
-                                                <td>{{ $expense->site->name }}</td>
-                                                <td class="text-end">{{ rupees($expense->amount) }}</td>
-                                                <td class="text-end">{{ $expense->settlement_via }}</td>
-                                                <td class="text-end">{{ $expense->description }}</td>
+                                        @forelse ($this->payments as $payment)
+                                            <tr wire:key="payment-{{ $payment->id }}">
+                                                <td>{{ \Carbon\Carbon::parse($payment->date)->format('d M Y') }}</td>
+                                                <td>{{ $payment->labor->name }}</td>
+                                                <td class="text-end">{{ rupees($payment->amount) }}</td>
+                                                <td class="text-end">{{ $payment->settlement_via }}</td>
+                                                <td class="text-end">{{ $payment->description }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('expense.edit', $expense) }}"
+                                                    <a href="{{ route('payment.edit', $payment) }}"
                                                         class="btn btn-sm btn-warning btn-flat">Edit</a>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center text-muted">No expense records
+                                                <td colspan="6" class="text-center text-muted">No payment records
                                                     found</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
-                                {{ $this->expenses->links() }}
+                                {{ $this->payments->links() }}
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\{Customer, Site, Labor, Attendance, Expense};
+use App\Models\{Customer, Site, Labor, Attendance, Expense, Payment, Receipt};
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -41,6 +41,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/transaction/expense', 'transaction.expense.create')->name('expense.create');
     Route::get('/transaction/{expense}/expense', fn(Expense $expense) => view('transaction.expense.edit', ['expense' => $expense]))->name('expense.edit');
     Route::view('/transaction/expenses',  'transaction.expense.index')->name('expense.index');
+
+    //Transactions - Payment
+    Route::view('/transaction/payment', 'transaction.payment.create')->name('payment.create');
+    Route::get('/transaction/{payment}/payment', fn(Payment $payment) => view('transaction.payment.edit', ['payment' => $payment]))->name('payment.edit');
+    Route::view('/transaction/payments',  'transaction.payment.index')->name('payment.index');
+
+    //Transactions - Receipt
+    Route::view('/transaction/receipt', 'transaction.receipt.create')->name('receipt.create');
+    Route::get('/transaction/{receipt}/receipt', fn(Receipt $receipt) => view('transaction.receipt.edit', ['receipt' => $receipt]))->name('receipt.edit');
+    Route::view('/transaction/receipts',  'transaction.receipt.index')->name('receipt.index');
 });
 
 

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_id')->constrained('sites');
             $table->date('date');
+            $table->foreignId('site_id')->constrained('sites');
             $table->string('description');
             $table->decimal('amount', 10, 2);
-            $table->enum('payment_method', ['Cash', 'Bank/UPI', 'Other']);
+            $table->enum('settlement_via', ['Cash', 'Bank/UPI', 'Other']);
             $table->timestamps();
         });
     }

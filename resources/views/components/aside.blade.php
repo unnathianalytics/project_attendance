@@ -142,7 +142,44 @@
                         </li>
                     </ul>
                 </li>
-
+                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
+                        <p>
+                            Payment
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a wire:navigate href="{{ route('payment.create') }}"
+                                class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
+                                <p>Add</p>
+                            </a>
+                        </li>
+                        <li class="nav-item"> <a wire:navigate href="{{ route('payment.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-record-circle-fill"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
+                        <p>
+                            Receipt
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"> <a wire:navigate href="{{ route('receipt.create') }}"
+                                class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
+                                <p>Add</p>
+                            </a>
+                        </li>
+                        <li class="nav-item"> <a wire:navigate href="{{ route('receipt.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-record-circle-fill"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

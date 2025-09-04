@@ -134,7 +134,7 @@
                                                         <td>
                                                             <button type="button" class="btn btn-danger btn-sm"
                                                                 wire:click="removeAttendance({{ $index }})"><i
-                                                                    class="fa fa-close"></i></button>
+                                                                    class="bi bi-x"></i></button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
