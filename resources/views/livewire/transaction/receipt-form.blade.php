@@ -54,7 +54,7 @@
                                                     <tr>
                                                         <td>
                                                             <select class="form-control form-control-sm"
-                                                                wire:model.live="receipts.{{ $index }}.customer_id">
+                                                                wire:model="receipts.{{ $index }}.customer_id">
                                                                 <option value="">Select Customer</option>
                                                                 @foreach (\App\Models\Customer::all() as $customer)
                                                                     <option value="{{ $customer->id }}">
@@ -70,7 +70,7 @@
                                                         </td>
                                                         <td>
                                                             <input type="number" class="form-control form-control-sm"
-                                                                wire:model.live="receipts.{{ $index }}.amount"
+                                                                wire:model="receipts.{{ $index }}.amount"
                                                                 placeholder="Amount Paid">
                                                             @error("receipts.$index.amount")
                                                                 <div id="" role="alert" class="invalid-feedback">
@@ -79,8 +79,8 @@
                                                             @enderror
                                                         </td>
                                                         <td>
-                                                            <select class="form-control form-control-sm"
-                                                                wire:model.live="receipts.{{ $index }}.settlement_via">
+                                                            <select class="form-select form-select-sm"
+                                                                wire:model="receipts.{{ $index }}.settlement_via">
                                                                 <option value="">Select Receipt Method</option>
                                                                 <option value="Cash">Cash</option>
                                                                 <option value="Bank/UPI">Bank/UPI</option>
@@ -105,7 +105,7 @@
                                                         <td>
                                                             <button type="button" class="btn btn-danger btn-sm"
                                                                 wire:click="removeReceipt({{ $index }})"><i
-                                                                    class="fa fa-close"></i></button>
+                                                                    class="bi bi-x"></i></button>
                                                         </td>
                                                     </tr>
                                                 @endforeach

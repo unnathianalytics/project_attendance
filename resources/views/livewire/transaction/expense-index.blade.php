@@ -76,7 +76,7 @@
                                             <tr wire:key="expense-{{ $expense->id }}">
                                                 <td>{{ \Carbon\Carbon::parse($expense->date)->format('d M Y') }}</td>
                                                 <td>{{ $expense->site->name }}</td>
-                                                <td class="text-end">{{ $expense->amount }}</td>
+                                                <td class="text-end">{{ rupees($expense->amount) }}</td>
                                                 <td class="text-end">{{ $expense->settlement_via }}</td>
                                                 <td class="text-end">{{ $expense->description }}</td>
                                                 <td class="text-center">

@@ -76,7 +76,7 @@
                                             <tr wire:key="payment-{{ $payment->id }}">
                                                 <td>{{ \Carbon\Carbon::parse($payment->date)->format('d M Y') }}</td>
                                                 <td>{{ $payment->labor->name }}</td>
-                                                <td class="text-end">{{ $payment->amount }}</td>
+                                                <td class="text-end">{{ rupees($payment->amount) }}</td>
                                                 <td class="text-end">{{ $payment->settlement_via }}</td>
                                                 <td class="text-end">{{ $payment->description }}</td>
                                                 <td class="text-center">

@@ -54,8 +54,8 @@ class PaymentForm extends Component
             'payments' => 'required|array|min:1',
             'payments.*.user_id' => 'required|exists:users,id',
             'payments.*.description' => 'required|string|max:255',
-            'payments.*.amount' => 'required|numeric',
-            'payments.*.settlement_via' => 'in:Cash,Bank/UPI,Other',
+            'payments.*.amount' => 'required|numeric|min:1',
+            'payments.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
         ]);
 
         if ($this->payment && ($this->payment->date != $this->date)) {

@@ -76,7 +76,7 @@
                                             <tr wire:key="receipt-{{ $receipt->id }}">
                                                 <td>{{ \Carbon\Carbon::parse($receipt->date)->format('d M Y') }}</td>
                                                 <td>{{ $receipt->customer->name }}</td>
-                                                <td class="text-end">{{ $receipt->amount }}</td>
+                                                <td class="text-end">{{ rupees($receipt->amount) }}</td>
                                                 <td class="text-end">{{ $receipt->settlement_via }}</td>
                                                 <td class="text-end">{{ $receipt->description }}</td>
                                                 <td class="text-center">
@@ -91,8 +91,15 @@
                                             </tr>
                                         @endforelse
                                     </tbody>
+                                    <tfoot>
+                                        <th></th>
+                                        <th></th>
+                                        <th class="text-end">{{ rupees($this->receipts->sum('amount')) }}</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tfoot>
                                 </table>
-                                {{ $this->receipts->links() }}
                             </div>
                         </div>
                     </div>

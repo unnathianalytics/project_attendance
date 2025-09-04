@@ -6,12 +6,10 @@ use Livewire\Component;
 use App\Models\Receipt;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
-use Livewire\WithPagination;
 use Carbon\Carbon;
 
 class ReceiptIndex extends Component
 {
-    use WithPagination;
 
     #[Validate('required|date|before_or_equal:to_date')]
     public $from_date;

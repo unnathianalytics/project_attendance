@@ -54,8 +54,8 @@ class ExpenseForm extends Component
             'expenses' => 'required|array|min:1',
             'expenses.*.site_id' => 'required|exists:sites,id',
             'expenses.*.description' => 'required|string|max:255',
-            'expenses.*.amount' => 'required|numeric',
-            'expenses.*.settlement_via' => 'in:Cash,Bank/UPI,Other',
+            'expenses.*.amount' => 'required|numeric|min:1',
+            'expenses.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
         ]);
 
         if ($this->expense && ($this->expense->date != $this->date)) {
