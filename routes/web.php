@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\{Customer, Site, Labor, Attendance};
+use App\Models\{Customer, Site, Labor, Attendance, Expense};
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -35,6 +35,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Transactions - Attendance - Employee
     Route::view('/transaction/attendance/employee', 'transaction.attendance.employee-create')->name('attendance.employee.create');
+
+
+    //Transactions - Expense
+    Route::view('/transaction/expense', 'transaction.expense.create')->name('expense.create');
+    Route::get('/transaction/{expense}/expense', fn(Expense $expense) => view('transaction.expense.edit', ['expense' => $expense]))->name('expense.edit');
+    Route::view('/transaction/expenses',  'transaction.expense.index')->name('expense.index');
 });
 
 
