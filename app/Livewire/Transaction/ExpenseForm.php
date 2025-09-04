@@ -27,8 +27,6 @@ class ExpenseForm extends Component
                     'amount' => $att->amount,
                     'payment_method' => $att->payment_method
                 ])->toArray();
-        } else {
-            $this->expenses = [];
         }
     }
 
@@ -81,6 +79,16 @@ class ExpenseForm extends Component
 
     public function render()
     {
+        if (empty($this->expenses)) {
+            $this->expenses = [
+                [
+                    'site_id' => '',
+                    'description' => '',
+                    'amount' => 0,
+                    'payment_method' => '',
+                ]
+            ];
+        }
         return view('livewire.transaction.expense-form');
     }
 }
