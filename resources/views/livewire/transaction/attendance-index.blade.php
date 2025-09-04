@@ -61,7 +61,10 @@
                                             <tr wire:key="attendance-{{ $attendance->id }}">
                                                 <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d M Y') }}
                                                 </td>
-                                                <td>{{ $attendance->labor->name }}</td>
+                                                <td>{{ $attendance->labor->name }}
+
+                                                    ({{ $attendance->labor->getBalanceAsOf($attendance->date) }})
+                                                </td>
                                                 <td>{{ $attendance->site->name }}</td>
                                                 <td class="text-end">{{ $attendance->attendance_unit }}
                                                     <small>{{ $attendance->cr_dr }}</small>
