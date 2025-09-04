@@ -126,4 +126,4 @@
         </ul>
     </div>
 </nav>
-@include('layouts.aside')
+<x-aside />
