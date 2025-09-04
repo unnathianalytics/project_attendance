@@ -49,14 +49,25 @@ class ExpenseForm extends Component
 
     public function save()
     {
-        $this->validate([
-            'date' => 'required|date',
-            'expenses' => 'required|array|min:1',
-            'expenses.*.site_id' => 'required|exists:sites,id',
-            'expenses.*.description' => 'required|string|max:255',
-            'expenses.*.amount' => 'required|numeric|min:1',
-            'expenses.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
-        ]);
+        $this->validate(
+            [
+                'date' => 'required|date',
+                'expenses' => 'required|array|min:1',
+                'expenses.*.site_id' => 'required|exists:sites,id',
+                'expenses.*.description' => 'required|string|max:255',
+                'expenses.*.amount' => 'required|numeric|min:1',
+                'expenses.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
+            ],
+            [],
+            [
+                'date' => 'Date',
+                'expenses' => 'Expenses',
+                'expenses.*.site_id' => 'Site',
+                'expenses.*.description' => 'Description',
+                'expenses.*.amount' => 'Amount',
+                'expenses.*.settlement_via' => 'Settlement Via',
+            ]
+        );
 
         if ($this->expense && ($this->expense->date != $this->date)) {
             Expense::where('date', $this->expense->date)

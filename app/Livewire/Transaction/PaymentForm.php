@@ -49,14 +49,24 @@ class PaymentForm extends Component
 
     public function save()
     {
-        $this->validate([
-            'date' => 'required|date',
-            'payments' => 'required|array|min:1',
-            'payments.*.user_id' => 'required|exists:users,id',
-            'payments.*.description' => 'required|string|max:255',
-            'payments.*.amount' => 'required|numeric|min:1',
-            'payments.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
-        ]);
+        $this->validate(
+            [
+                'date' => 'required|date',
+                'payments' => 'required|array|min:1',
+                'payments.*.user_id' => 'required|exists:users,id',
+                'payments.*.description' => 'required|string|max:255',
+                'payments.*.amount' => 'required|numeric|min:1',
+                'payments.*.settlement_via' => 'required|in:Cash,Bank/UPI,Other',
+            ],
+            [],
+            [
+                'date' => 'Date',
+                'payments.*.user_id' => 'Laborer',
+                'payments.*.description' => 'Description',
+                'payments.*.amount' => 'Amount',
+                'payments.*.settlement_via' => 'Settlement Via',
+            ]
+        );
 
         if ($this->payment && ($this->payment->date != $this->date)) {
             Payment::where('date', $this->payment->date)
