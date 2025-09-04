@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('number')->unique();
             $table->date('date');
             $table->foreignId('user_id')->constrained('users');
+            $table->string('description');
             $table->decimal('amount', 10, 2);
-            $table->enum('mode', ['Cash', 'UPI', 'NEFT/RTGS']);
-            $table->string('notes');
+            $table->enum('payment_method', ['Cash', 'Bank/UPI', 'Other']);
             $table->timestamps();
         });
     }
