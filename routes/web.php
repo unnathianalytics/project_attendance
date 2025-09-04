@@ -46,6 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/transaction/payment', 'transaction.payment.create')->name('payment.create');
     Route::get('/transaction/{payment}/payment', fn(Payment $payment) => view('transaction.payment.edit', ['payment' => $payment]))->name('payment.edit');
     Route::view('/transaction/payments',  'transaction.payment.index')->name('payment.index');
+
+    //Transactions - Receipt
+    Route::view('/transaction/receipt', 'transaction.receipt.create')->name('receipt.create');
+    Route::get('/transaction/{receipt}/receipt', fn(Receipt $receipt) => view('transaction.receipt.edit', ['receipt' => $receipt]))->name('receipt.edit');
+    Route::view('/transaction/receipts',  'transaction.receipt.index')->name('receipt.index');
 });
 
 

@@ -12,6 +12,10 @@ class Receipt extends Model
         'description',
         'amount',
         'date',
-        'payment_method',
+        'settlement_via',
     ];
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

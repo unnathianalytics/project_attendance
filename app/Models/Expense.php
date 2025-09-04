@@ -15,7 +15,7 @@ class Expense extends Model
         'description',
         'amount',
         'date',
-        'payment_method',
+        'settlement_via',
     ];
 
     public function site(): BelongsTo

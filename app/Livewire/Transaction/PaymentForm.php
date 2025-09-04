@@ -25,7 +25,7 @@ class PaymentForm extends Component
                     'user_id' => $att->user_id,
                     'description' => $att->description,
                     'amount' => $att->amount,
-                    'payment_method' => $att->payment_method
+                    'settlement_via' => $att->settlement_via
                 ])->toArray();
         }
     }
@@ -37,7 +37,7 @@ class PaymentForm extends Component
             'user_id' => '',
             'description' => '',
             'amount' => 0,
-            'payment_method' => '',
+            'settlement_via' => '',
         ];
     }
 
@@ -55,7 +55,7 @@ class PaymentForm extends Component
             'payments.*.user_id' => 'required|exists:users,id',
             'payments.*.description' => 'required|string|max:255',
             'payments.*.amount' => 'required|numeric',
-            'payments.*.payment_method' => 'in:Cash,Bank/UPI,Other',
+            'payments.*.settlement_via' => 'in:Cash,Bank/UPI,Other',
         ]);
 
         if ($this->payment && ($this->payment->date != $this->date)) {
@@ -85,7 +85,7 @@ class PaymentForm extends Component
                     'user_id' => '',
                     'description' => '',
                     'amount' => 0,
-                    'payment_method' => '',
+                    'settlement_via' => '',
                 ]
             ];
         }

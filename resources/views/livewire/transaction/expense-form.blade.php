@@ -81,13 +81,13 @@
                                                         </td>
                                                         <td>
                                                             <select class="form-control form-control-sm"
-                                                                wire:model.live="expenses.{{ $index }}.payment_method">
+                                                                wire:model.live="expenses.{{ $index }}.settlement_via">
                                                                 <option value="">Select Payment Method</option>
                                                                 <option value="Cash">Cash</option>
                                                                 <option value="Bank/UPI">Bank/UPI</option>
                                                                 <option value="Other">Other</option>
                                                             </select>
-                                                            @error("expenses.$index.payment_method")
+                                                            @error("expenses.$index.settlement_via")
                                                                 <div id="" role="alert" class="invalid-feedback">
                                                                     {{ $message }}
                                                                 </div>

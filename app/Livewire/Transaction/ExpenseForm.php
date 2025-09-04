@@ -25,7 +25,7 @@ class ExpenseForm extends Component
                     'site_id' => $att->site_id,
                     'description' => $att->description,
                     'amount' => $att->amount,
-                    'payment_method' => $att->payment_method
+                    'settlement_via' => $att->settlement_via
                 ])->toArray();
         }
     }
@@ -37,7 +37,7 @@ class ExpenseForm extends Component
             'site_id' => '',
             'description' => '',
             'amount' => 0,
-            'payment_method' => '',
+            'settlement_via' => '',
         ];
     }
 
@@ -55,7 +55,7 @@ class ExpenseForm extends Component
             'expenses.*.site_id' => 'required|exists:sites,id',
             'expenses.*.description' => 'required|string|max:255',
             'expenses.*.amount' => 'required|numeric',
-            'expenses.*.payment_method' => 'in:Cash,Bank/UPI,Other',
+            'expenses.*.settlement_via' => 'in:Cash,Bank/UPI,Other',
         ]);
 
         if ($this->expense && ($this->expense->date != $this->date)) {
@@ -85,7 +85,7 @@ class ExpenseForm extends Component
                     'site_id' => '',
                     'description' => '',
                     'amount' => 0,
-                    'payment_method' => '',
+                    'settlement_via' => '',
                 ]
             ];
         }
