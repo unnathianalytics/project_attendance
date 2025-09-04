@@ -51,4 +51,13 @@ class Labor extends User
     {
         return self::withoutGlobalScope('employee_only')->get();
     }
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class, 'user_id', 'id');
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'user_id', 'id');
+    }
 }
