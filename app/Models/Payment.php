@@ -17,6 +17,6 @@ class Payment extends Model
 
     public function labor()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Labor::class, 'user_id');
     }
 }
