@@ -18281,13 +18281,13 @@ html[data-overlayscrollbars-body]>body {
 @property --os-scroll-percent {
     syntax: "<number>";
     inherits: true;
-    initial-value: 0
+    initial-value: 0;
 }
 
 @property --os-viewport-percent {
     syntax: "<number>";
     inherits: true;
-    initial-value: 0
+    initial-value: 0;
 }
 
 .os-scrollbar {
@@ -18609,5 +18609,3 @@ body>.os-scrollbar {
     --os-handle-bg-hover: hsla(0, 0%, 100%, .55);
     --os-handle-bg-active: hsla(0, 0%, 100%, .66)
 }
-
-/*# sourceMappingURL=adminlte.css.map */

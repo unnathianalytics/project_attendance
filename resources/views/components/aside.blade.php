@@ -1,7 +1,7 @@
 <aside class="app-sidebar bg-primary-subtle" data-bs-theme="dark">
     <div class="sidebar-brand"> <a wire:navigate href="{{ route('dashboard') }}" class="brand-link">
             <img src="{{ asset('dist/assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                class="brand-image opacity-75 shadow"> <span
+                class="brand-image opacity-75 shadow-sm"> <span
                 class="brand-text fw-light">{{ \App\Models\Company::first()->name ?? 'Login' }}</span> </a>
 
     </div>
