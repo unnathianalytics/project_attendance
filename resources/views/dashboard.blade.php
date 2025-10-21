@@ -31,14 +31,14 @@
                                     <div class="col-md-6">
                                         <label for="validationCustom01" class="form-label">First name<span
                                                 class="required-indicator sr-only"> (required)</span></label>
-                                        <input type="text" class="form-control form-control-sm" id="validationCustom01"
+                                        <input type="text" class="input input-xs" id="validationCustom01"
                                             value="Mark" required="">
                                         <div class="valid-feedback">Looks good!</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="validationCustom02" class="form-label">Last name<span
                                                 class="required-indicator sr-only"> (required)</span></label>
-                                        <input type="text" class="form-control form-control-sm" id="validationCustom02"
+                                        <input type="text" class="input input-xs" id="validationCustom02"
                                             value="Otto" required="">
                                         <div class="valid-feedback">Looks good!</div>
                                     </div>
@@ -47,7 +47,7 @@
                                                 class="required-indicator sr-only"> (required)</span></label>
                                         <div class="input-group input-group-sm has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            <input type="text" class="form-control form-control-sm"
+                                            <input type="text" class="input input-xs"
                                                 id="validationCustomUsername" aria-describedby="inputGroupPrepend"
                                                 required="">
                                         </div>
@@ -55,13 +55,13 @@
                                     <div class="col-md-6">
                                         <label for="validationCustom03" class="form-label">City<span
                                                 class="required-indicator sr-only"> (required)</span></label>
-                                        <input type="text" class="form-control form-control-sm" id="validationCustom03"
+                                        <input type="text" class="input input-xs" id="validationCustom03"
                                             required="">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="validationCustom04" class="form-label">State<span
                                                 class="required-indicator sr-only"> (required)</span></label>
-                                        <select class="form-control form-control-sm" id="validationCustom04" required="">
+                                        <select class="select select-xs" id="validationCustom04" required="">
                                             <option selected="" disabled="" value="">Choose...</option>
                                             <option>...</option>
                                             <option>...</option>
@@ -72,7 +72,7 @@
                                     <div class="col-md-6">
                                         <label for="validationCustom05" class="form-label">Zip<span
                                                 class="required-indicator sr-only"> (required)</span></label>
-                                        <input type="text" class="form-control form-control-sm" id="validationCustom05"
+                                        <input type="text" class="input input-xs" id="validationCustom05"
                                             required="">
                                     </div>
                                     <div class="col-12">
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button class="btn btn-sm btn-flat btn-success" type="submit">Submit form</button>
+                                <button class="btn btn-sm" type="submit">Submit form</button>
                             </div>
                         </form>
                     </div>

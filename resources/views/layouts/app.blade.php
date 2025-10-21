@@ -10,19 +10,16 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
     <meta name="supported-color-schemes" content="light dark">
     {{-- @include('layouts.style') --}}
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
-   @fluxAppearance
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fluxAppearance
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-800">
-    <flux:sidebar sticky collapsible="mobile" class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
+    <flux:sidebar sticky collapsible="mobile"
+        class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.header>
-            <flux:sidebar.brand
-                href="#"
-                logo="https://fluxui.dev/img/demo/logo.png"
-                logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
-                name="Acme Inc."
-            />
+            <flux:sidebar.brand href="#" logo="https://fluxui.dev/img/demo/logo.png"
+                logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." />
             <flux:sidebar.collapse class="lg:hidden" />
         </flux:sidebar.header>
         <flux:sidebar.search placeholder="Search..." />
@@ -34,6 +31,11 @@
             <flux:sidebar.group expandable heading="Favorites" class="grid">
                 <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
                 <flux:sidebar.item href="#">Android app</flux:sidebar.item>
+                <flux:sidebar.group expandable heading="Sub" class="grid">
+                    <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Android app</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Brand guidelines</flux:sidebar.item>
+                </flux:sidebar.group>
                 <flux:sidebar.item href="#">Brand guidelines</flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.nav>
@@ -78,18 +80,7 @@
         </flux:navbar>
     </flux:header>
     <flux:main>
-        <flux:heading size="xl" level="2">Good afternoon, Olivia</flux:heading>
-        <flux:text class="mb-6 mt-2 text-base">Here's what's new today</flux:text>
-        <flux:separator variant="subtle" />
-        <flux:field>
-    <flux:label>Username</flux:label>
-
-    <flux:description>This will be publicly displayed.</flux:description>
-
-    <flux:input />
-
-    <flux:error name="username" />
-</flux:field>
+        @yield('content')
     </flux:main>
 
     @include('layouts.js')
