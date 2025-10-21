@@ -9,7 +9,8 @@
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
     <meta name="supported-color-schemes" content="light dark">
-    @include('layouts.style')
+    {{-- @include('layouts.style') --}}
+   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="layout-fixed fixed-header fixed-footer sidebar-expand-lg sidebar-open bg-body-tertiary">
