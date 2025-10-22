@@ -1,20 +1,14 @@
 @extends('layouts.app')
 @section('content')
     <div class="app-content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3 class="mb-0 d-none">Customer List</h3>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a wire:navigate href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Customer List
-                        </li>
-                    </ol>
-                </div>
-            </div>
+        <flux:heading size="xl" level="3">Customer</flux:heading>
+       <div class="breadcrumbs text-sm flex justify-between">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Customer</a></li>
+                <li>List</li>
+            </ul>
+            <a class="btn btn-sm btn-primary" wire:navigate href="{{ route('customer.create') }}">New Customer</a>
         </div>
     </div>
     <div class="app-content">
@@ -22,17 +16,10 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="card card-outline card-success">
-                        <div class="card-header">
-                            <div class="card-title">Customer List</div>
-                            <div class="card-tools">
-                                <a wire:navigate class="btn btn-sm btn-secondary btn-flat float-end"
-                                    href="{{ route('customer.create') }}">New
-                                    Customer</a>
-                            </div>
-                        </div>
+
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-bordered">
+                                <table class="table table-xs table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Name</th>

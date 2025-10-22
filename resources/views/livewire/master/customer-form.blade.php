@@ -1,20 +1,28 @@
 <div>
     <div class="app-content-header">
-        <div class="container-fluid">
+       <flux:heading size="xl" level="3">Customer</flux:heading>
+       <div class="breadcrumbs text-sm flex justify-between">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Customer</a></li>
+                <li>List</li>
+            </ul>
+            <a class="btn btn-sm btn-primary" wire:navigate href="{{ route('customer.index') }}">Cancel</a>
+        </div>
             <div class="row">
                 <div class="col-sm-6">
                     <h3 class="mb-0 d-none">Customer Form</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a wire:navigate href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Customer Form
                         </li>
                     </ol>
                 </div>
             </div>
-        </div>
+
     </div>
     <div class="app-content">
         <div class="container-fluid">
