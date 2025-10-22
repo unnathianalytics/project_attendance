@@ -26,9 +26,10 @@
             </flux:sidebar.group>
         </flux:sidebar.group>
         <flux:sidebar.group expandable heading="Transactions" class="grid">
-            <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Labor::count() }}" heading="Labor" class="grid">
-                <flux:sidebar.item href="{{ route('labor.create') }}">Create</flux:sidebar.item>
-                <flux:sidebar.item href="{{ route('labor.index') }}">List</flux:sidebar.item>
+            <flux:sidebar.group expandable expanded="false" heading="Attendance" class="grid">
+                <flux:sidebar.item href="{{ route('attendance.create') }}">Create</flux:sidebar.item>
+                <flux:sidebar.item href="{{ route('attendance.index') }}">List</flux:sidebar.item>
+                <flux:sidebar.item href="{{ route('attendance.employee.create') }}">Self Attendance</flux:sidebar.item>
             </flux:sidebar.group>
              <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Customer::count() }}" heading="Customers" class="grid">
                 <flux:sidebar.item href="{{ route('customer.create') }}">Create</flux:sidebar.item>
