@@ -129,74 +129,153 @@
 
 @push('scripts')
     <script>
-        //from chatgpt
-        //https://chatgpt.com/share/68f99d2c-6118-8009-87b8-70ecf7fc3eae
-        document.addEventListener('livewire:initialized', () => {
-            startGeolocationTracking();
-        });
+        //from https://grok.com/share/c2hhcmQtMg%3D%3D_83fe4af6-faad-4f4b-8314-e0997d6df4b0
+        (function() {
+            // Encapsulate in IIFE to avoid globals
+            let watchId = null;
+            let lastUpdateTime = 0;
+            const THROTTLE_MS = 10000; // 10s throttle for updates
+            const MIN_DISTANCE_METERS = 10; // Optional: Skip if <10m movement (requires Haversine calc)
+            let lastLat = null;
+            let lastLng = null;
 
-        let watchId = null;
-        let updateCounter = 0;
-        const UPDATE_INTERVAL = 5; // every 5th callback (~10s typical)
-        const GEO_OPTIONS = {
-            enableHighAccuracy: true,
-            timeout: 15000,
-            maximumAge: 60000,
-        };
-
-        Livewire.on('refreshGeolocation', restartGeolocationTracking);
-
-        function startGeolocationTracking() {
-            if (!navigator.geolocation) {
-                alert('Your browser does not support geolocation.');
-                return;
+            // Custom event dispatcher for errors (Livewire-friendly)
+            function dispatchError(code, message) {
+                Livewire.emit('geolocationError', {
+                    code,
+                    message
+                });
+                console.error('Geolocation error:', {
+                    code,
+                    message
+                });
             }
 
-            // Get initial location once
-            navigator.geolocation.getCurrentPosition(sendLocation, handleError, GEO_OPTIONS);
+            // Optional: Simple distance calculator (Haversine formula)
+            function calculateDistance(lat1, lng1, lat2, lng2) {
+                if (!lat1 || !lng1 || !lat2 || !lng2) return Infinity;
+                const R = 6371e3; // Earth's radius in meters
+                const φ1 = lat1 * Math.PI / 180;
+                const φ2 = lat2 * Math.PI / 180;
+                const Δφ = (lat2 - lat1) * Math.PI / 180;
+                const Δλ = (lng2 - lng1) * Math.PI / 180;
+                const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                return R * c;
+            }
 
-            // Then continuously watch position (with throttling)
-            watchId = navigator.geolocation.watchPosition(
-                (pos) => {
-                    if (++updateCounter % UPDATE_INTERVAL === 0) {
-                        sendLocation(pos);
+            function handleGeolocationError(error) {
+                let message = 'Location error: ';
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        message += 'Location access denied. Please enable location services and reload the page.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        message += 'Location information unavailable. Please check your GPS settings.';
+                        break;
+                    case error.TIMEOUT:
+                        message += 'Location request timed out. Please try refreshing your location.';
+                        break;
+                    default:
+                        message += 'An unknown error occurred.';
+                        break;
+                }
+                dispatchError(error.code, message);
+            }
+
+            function shouldUpdatePosition(currentTime, lat, lng) {
+                const timeElapsed = currentTime - lastUpdateTime;
+                if (timeElapsed < THROTTLE_MS) return false;
+                if (lastLat !== null && lastLng !== null) {
+                    const distance = calculateDistance(lastLat, lastLng, lat, lng);
+                    if (distance < MIN_DISTANCE_METERS) return false; // Skip minor movements
+                }
+                return true;
+            }
+
+            function updateLivewireLocation(lat, lng) {
+                if (shouldUpdatePosition(Date.now(), lat, lng)) {
+                    @this.updateLocation(lat, lng);
+                    lastUpdateTime = Date.now();
+                    lastLat = lat;
+                    lastLng = lng;
+                }
+            }
+
+            async function checkPermissions() {
+                if ('permissions' in navigator) {
+                    try {
+                        const permission = await navigator.permissions.query({
+                            name: 'geolocation'
+                        });
+                        if (permission.state === 'denied') {
+                            dispatchError('PERMISSION_DENIED',
+                                'Location access permanently denied. Please enable in browser settings.');
+                            return false;
+                        }
+                    } catch (err) {
+                        console.warn('Permission query failed (fallback to direct request):', err);
                     }
-                },
-                handleError,
-                GEO_OPTIONS
-            );
-        }
-
-        function restartGeolocationTracking() {
-            stopGeolocationTracking();
-            startGeolocationTracking();
-        }
-
-        function stopGeolocationTracking() {
-            if (watchId) {
-                navigator.geolocation.clearWatch(watchId);
-                watchId = null;
+                }
+                return true;
             }
-        }
 
-        function sendLocation(position) {
-            @this.updateLocation(position.coords.latitude, position.coords.longitude);
-        }
+            function initializeGeolocation() {
+                if (!navigator.geolocation) {
+                    dispatchError('UNSUPPORTED', 'Geolocation is not supported by this browser.');
+                    return;
+                }
 
-        function handleError(error) {
-            const messages = {
-                [error
-                .PERMISSION_DENIED]: 'Location access denied. Please enable location services and reload the page.',
-                [error.POSITION_UNAVAILABLE]: 'Location information unavailable. Please check your GPS settings.',
-                [error.TIMEOUT]: 'Location request timed out. Please try refreshing your location.',
-                default: 'An unknown error occurred while fetching location.'
-            };
+                // Proactive permission check
+                checkPermissions().then(hasPermission => {
+                    if (!hasPermission) return;
 
-            console.error('Geolocation error:', error);
-            alert(messages[error.code] || messages.default);
-        }
+                    // Get current position (align maximumAge with watch for consistency)
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => updateLivewireLocation(position.coords.latitude, position.coords
+                            .longitude),
+                        handleGeolocationError, {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 60000
+                        } // Consistent with watch
+                    );
 
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', stopGeolocationTracking);
+                    // Watch with throttled updates
+                    watchId = navigator.geolocation.watchPosition(
+                        (position) => updateLivewireLocation(position.coords.latitude, position.coords
+                            .longitude),
+                        handleGeolocationError, {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 60000
+                        }
+                    );
+                });
+            }
+
+            // Event listeners
+            document.addEventListener('livewire:initialized', initializeGeolocation);
+            Livewire.on('refreshGeolocation', () => {
+                if (watchId) {
+                    navigator.geolocation.clearWatch(watchId);
+                    watchId = null;
+                }
+                // Reset state for fresh start
+                lastUpdateTime = 0;
+                lastLat = null;
+                lastLng = null;
+                initializeGeolocation();
+            });
+
+            // Cleanup
+            window.addEventListener('beforeunload', () => {
+                if (watchId) {
+                    navigator.geolocation.clearWatch(watchId);
+                }
+            });
+        })();
     </script>
 @endpush
