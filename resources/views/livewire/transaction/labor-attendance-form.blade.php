@@ -129,86 +129,74 @@
 
 @push('scripts')
     <script>
-        let watchId = null;
-        let locationUpdateCount = 0;
-
+        //from chatgpt
+        //https://chatgpt.com/share/68f99d2c-6118-8009-87b8-70ecf7fc3eae
         document.addEventListener('livewire:initialized', () => {
-            initializeGeolocation();
+            startGeolocationTracking();
         });
 
-        // Listen for manual refresh requests
-        Livewire.on('refreshGeolocation', () => {
-            if (watchId) {
-                navigator.geolocation.clearWatch(watchId);
-            }
-            initializeGeolocation();
-        });
+        let watchId = null;
+        let updateCounter = 0;
+        const UPDATE_INTERVAL = 5; // every 5th callback (~10s typical)
+        const GEO_OPTIONS = {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 60000,
+        };
 
-        function initializeGeolocation() {
+        Livewire.on('refreshGeolocation', restartGeolocationTracking);
+
+        function startGeolocationTracking() {
             if (!navigator.geolocation) {
-                alert('Geolocation is not supported by this browser.');
+                alert('Your browser does not support geolocation.');
                 return;
             }
 
-            // First, get current position immediately
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    @this.updateLocation(position.coords.latitude, position.coords.longitude);
-                },
-                (error) => {
-                    console.error('Geolocation error:', error);
-                    handleGeolocationError(error);
-                }, {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 0
-                }
-            );
+            // Get initial location once
+            navigator.geolocation.getCurrentPosition(sendLocation, handleError, GEO_OPTIONS);
 
-            // Then set up watch position with throttling
+            // Then continuously watch position (with throttling)
             watchId = navigator.geolocation.watchPosition(
-                (position) => {
-                    // Throttle updates - only update every 10 seconds or significant movement
-                    locationUpdateCount++;
-                    if (locationUpdateCount % 5 === 0) { // Update every 5th callback
-                        @this.updateLocation(position.coords.latitude, position.coords.longitude);
+                (pos) => {
+                    if (++updateCounter % UPDATE_INTERVAL === 0) {
+                        sendLocation(pos);
                     }
                 },
-                (error) => {
-                    console.error('Geolocation watch error:', error);
-                    handleGeolocationError(error);
-                }, {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 60000 // Accept cached location up to 1 minute old
-                }
+                handleError,
+                GEO_OPTIONS
             );
         }
 
-        function handleGeolocationError(error) {
-            let errorMessage = 'Location error: ';
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    errorMessage += 'Location access denied. Please enable location services and reload the page.';
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    errorMessage += 'Location information unavailable. Please check your GPS settings.';
-                    break;
-                case error.TIMEOUT:
-                    errorMessage += 'Location request timed out. Please try refreshing your location.';
-                    break;
-                default:
-                    errorMessage += 'An unknown error occurred.';
-                    break;
-            }
-            alert(errorMessage);
+        function restartGeolocationTracking() {
+            stopGeolocationTracking();
+            startGeolocationTracking();
         }
 
-        // Clean up on page unload
-        window.addEventListener('beforeunload', () => {
+        function stopGeolocationTracking() {
             if (watchId) {
                 navigator.geolocation.clearWatch(watchId);
+                watchId = null;
             }
-        });
+        }
+
+        function sendLocation(position) {
+            @this.updateLocation(position.coords.latitude, position.coords.longitude);
+        }
+
+        function handleError(error) {
+            const messages = {
+                [error
+                .PERMISSION_DENIED]: 'Location access denied. Please enable location services and reload the page.',
+                [error.POSITION_UNAVAILABLE]: 'Location information unavailable. Please check your GPS settings.',
+                [error.TIMEOUT]: 'Location request timed out. Please try refreshing your location.',
+                default: 'An unknown error occurred while fetching location.'
+            };
+
+            console.error('Geolocation error:', error);
+            alert(messages[error.code] || messages.default);
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', stopGeolocationTracking);
     </script>
 @endpush
