@@ -33,13 +33,13 @@
                                 <h2>Mark Attendance</h2>
 
                                 @if (session()->has('message'))
-                                    <div class="alert alert-success">
+                                    <div class="bg-green-300 text-green-800 font-semibold rounded-sm p-3 mb-6">
                                         {{ session('message') }}
                                     </div>
                                 @endif
 
                                 @if (session()->has('error'))
-                                    <div class="alert alert-danger">
+                                    <div class="bg-red-800 text-red-300 font-semibold rounded-sm p-3 mb-6">
                                         {{ session('error') }}
                                     </div>
                                 @endif
@@ -47,18 +47,18 @@
                                 <!-- Location Status -->
                                 <div class="mb-3">
                                     @if ($locationFetched)
-                                        <div class="alert alert-success">
-                                            <i class="fas fa-map-marker-alt"></i> Location detected
+                                        <div class="bg-green-200 text-green-700 font-semibold rounded-sm p-3 mb-6 flex justify-between items-center">
+                                            <div><i class="fas fa-map-marker-alt"></i> Location detected</div>
                                             <button wire:click="refreshLocation"
-                                                class="btn btn-sm btn-outline-primary float-end">
+                                                class="bg-green-800 text-green-100 font-semibold rounded-sm px-3 py-1 border border-white">
                                                 Refresh Location
                                             </button>
                                         </div>
                                     @else
-                                        <div class="alert alert-warning">
-                                            <i class="fas fa-spinner fa-spin"></i> Detecting location...
+                                        <div class="bg-red-800 text-red-100 font-semibold rounded-sm p-3 mb-6 flex justify-between items-center">
+                                           <div><i class="fas fa-spinner fa-spin"></i> Detecting location...</div>
                                             <button wire:click="refreshLocation"
-                                                class="btn btn-sm btn-outline-primary float-end">
+                                                class="bg-green-800 text-green-100 font-semibold rounded-sm px-3 py-1 border border-white">
                                                 Refresh Location
                                             </button>
                                         </div>
@@ -68,7 +68,7 @@
                                 <!-- Site Selection -->
                                 <div class="mb-3">
                                     <label class="form-label">Select Site:</label>
-                                    <select wire:model.live="selectedSiteId" class="form-control"
+                                    <select wire:model.live="selectedSiteId" class="select"
                                         @if (!$locationFetched) disabled @endif>
                                         <option value="">Select a site</option>
                                         @foreach ($nearbySites as $siteData)
