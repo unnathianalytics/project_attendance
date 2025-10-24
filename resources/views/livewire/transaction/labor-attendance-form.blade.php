@@ -50,7 +50,7 @@
                                         <div class="bg-green-200 text-green-700 font-semibold rounded-sm p-3 mb-6 flex justify-between items-center">
                                             <div><i class="fas fa-map-marker-alt"></i> Location detected</div>
                                             <button wire:click="refreshLocation"
-                                                class="bg-green-800 text-green-100 font-semibold rounded-sm px-3 py-1 border border-white">
+                                                class="btn btn-sm btn-default"><span class="material-symbols-outlined">refresh</span>
                                                 Refresh Location
                                             </button>
                                         </div>
@@ -58,8 +58,8 @@
                                         <div class="bg-red-800 text-red-100 font-semibold rounded-sm p-3 mb-6 flex justify-between items-center">
                                            <div><i class="fas fa-spinner fa-spin"></i> Detecting location...</div>
                                             <button wire:click="refreshLocation"
-                                                class="bg-green-800 text-green-100 font-semibold rounded-sm px-3 py-1 border border-white">
-                                                Refresh Location
+                                                class="btn btn-sm btn-default"><span class="material-symbols-outlined animate-spin">app_badging</span>
+                                                Waiting location...
                                             </button>
                                         </div>
                                     @endif

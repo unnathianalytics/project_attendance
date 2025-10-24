@@ -12,32 +12,33 @@
         <flux:sidebar.item icon="document-text" href="#">Documents</flux:sidebar.item>
         <flux:sidebar.item icon="calendar" href="#">Calendar</flux:sidebar.item> --}}
         <flux:sidebar.group expandable expanded="false" heading="Masters" class="grid">
-            <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Labor::count() }}" heading="Labor" class="grid">
+            <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Labor::count() }}" heading="Labor"
+                class="grid">
                 <flux:sidebar.item href="{{ route('labor.create') }}">Create</flux:sidebar.item>
                 <flux:sidebar.item href="{{ route('labor.index') }}">List</flux:sidebar.item>
             </flux:sidebar.group>
-             <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Customer::count() }}" heading="Customers" class="grid">
+            <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Customer::count() }}"
+                heading="Customers" class="grid">
                 <flux:sidebar.item href="{{ route('customer.create') }}">Create</flux:sidebar.item>
                 <flux:sidebar.item href="{{ route('customer.index') }}">List</flux:sidebar.item>
             </flux:sidebar.group>
-            <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Site::count() }}" heading="Sites" class="grid">
+            <flux:sidebar.group expandable expanded="false"  heading="Sites"
+                class="grid">
                 <flux:sidebar.item href="{{ route('site.create') }}">Create</flux:sidebar.item>
-                <flux:sidebar.item href="{{ route('site.index') }}">List</flux:sidebar.item>
+                <flux:sidebar.item href="{{ route('site.index') }}" badge="{{ \App\Models\Site::count() }}">List</flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.group>
         <flux:sidebar.group expandable heading="Transactions" class="grid">
-            <flux:sidebar.group expandable expanded="false" heading="Attendance" class="grid">
+            <flux:sidebar.group expandable expanded="false" class="grid">
+                <x-slot name="heading">
+                    <span class="flex items-center space-x-2">
+                        <span class="text-lg material-symbols-outlined">done_all</span>
+                        <span>Attendance</span>
+                    </span>
+                </x-slot>
                 <flux:sidebar.item href="{{ route('attendance.create') }}">Create</flux:sidebar.item>
                 <flux:sidebar.item href="{{ route('attendance.index') }}">List</flux:sidebar.item>
                 <flux:sidebar.item href="{{ route('attendance.employee.create') }}">Self Attendance</flux:sidebar.item>
-            </flux:sidebar.group>
-             <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Customer::count() }}" heading="Customers" class="grid">
-                <flux:sidebar.item href="{{ route('customer.create') }}">Create</flux:sidebar.item>
-                <flux:sidebar.item href="{{ route('customer.index') }}">List</flux:sidebar.item>
-            </flux:sidebar.group>
-            <flux:sidebar.group expandable expanded="false" badge="{{ \App\Models\Site::count() }}" heading="Sites" class="grid">
-                <flux:sidebar.item href="{{ route('site.create') }}">Create</flux:sidebar.item>
-                <flux:sidebar.item href="{{ route('site.index') }}">List</flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.group>
     </flux:sidebar.nav>
